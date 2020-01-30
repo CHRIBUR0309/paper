@@ -1,15 +1,26 @@
-\documentclass[uplatex,paper=a4,fontsize=4.0truemm,jafontsize=4.0truemm,head_space=30.0truemm,baselineskip=8.0truemm,gutter=25.0truemm,oneside,fleqn,hanging_panctuation,open_bracket_pos=nibu_tentsuki,dvipdfmx,jis2004,book,titlepage]{jlreq}
+\documentclass[uplatex,paper=a4,fontsize=4.0truemm,jafontsize=4.0truemm,head_space=30.0truemm,foot_space=30.0truemm,baselineskip=8.0truemm,line_length=40zw,gutter=25.0truemm,oneside,openany,fleqn,hanging_panctuation,open_bracket_pos=nibu_tentsuki,dvipdfmx,jis2004,book,titlepage]{jlreq}
 %
 \西暦
 %\和暦
 \NewPageStyle{TopRightNombre}{nombre_position=top-right}
 \pagestyle{TopRightNombre}
+\jlreqsetup{%
+	caption_font={\small\sffamily},%
+	caption_label_font={\small\sffamily}%
+}
+\ModifyHeading{chapter}{lines=3}
+\ModifyHeading{section}{lines=2}
+\ModifyHeading{subsection}{%
+	lines=1,
+	font={\large\sffamily}%
+}
 \usepackage{amsmath,amssymb}
 \usepackage[OT1,T2A,X2,OT2,LGR,T1]{fontenc}
 \usepackage{textcomp}
 \usepackage{lmodern,exscale}
 %\usepackage{newtxtext,newtxmath}
 %\usepackage{newpxtext,newpxmath}
+\usepackage{mathrsfs,bm,myFonts}%myFonts：自作パッケージ＠D:\texlive\texmf-local\tex\latex\local\local\myFonts
 \usepackage[expert,deluxe]{otf}
 \usepackage[noalphabet,unicode,sourcehan-otc]{pxchfon}
 \usepackage[prefernoncjk]{pxcjkcat}
@@ -18,7 +29,6 @@
 \usepackage{soul,dotlessj,myt2aenc,myx2enc,bxokumacro,pxrubrica}
 \usepackage{zi4,bxinconsolata,upquote}
 \usepackage{mathtools,fouridx}
-\usepackage{mathrsfs,bm,myFonts}%myFonts：自作パッケージ＠D:\texlive\texmf-local\tex\latex\local\local\myFonts
 \usepackage{bxascmac}
 \usepackage{tcolorbox}
 \tcbuselibrary{most}
@@ -114,8 +124,9 @@
 %
 \newcommand{\zwspace}{\hspace{1zw}\relax}
 \renewcommand{\lstlistingname}{プログラム}
-\newcommand{\figureinput}[4]{\begin{figure}[tbp]\centering\includegraphics[#1]{#2}\caption{#3．}\label{fig:#4}\end{figure}}
-\newcommand{\tableinput}[4]{\begin{table}[tbp]\centering\caption{#3．}\label{tab:#4}\begin{tabular}{#1}#2\end{tabular}\end{table}}
+\newcommand{\captiondot}[1]{\caption{#1．}}
+\newcommand{\figureinput}[4]{\begin{figure}[tbp]\centering\includegraphics[#1]{#2}\captiondot{#3}\label{fig:#4}\end{figure}}
+\newcommand{\tableinput}[4]{\begin{table}[tbp]\centering\captiondot{#3}\label{tab:#4}\begin{tabular}{#1}#2\end{tabular}\end{table}}
 \newcommand{\mathdisplaystyle}[1]{\(\displaystyle{#1}\)}
 \newcommand{\Reference}[1]{\mathdisplaystyle{\ref{#1}}}
 \newcommand{\Citation}[1]{\mathdisplaystyle{\cite{#1}}}
@@ -167,7 +178,7 @@
 \newcommand{\combination}[2]{\fourIdx{}{#1}{}{#2}{\mathrm{C}}}
 \newcommand{\permutation}[2]{\fourIdx{}{#1}{}{#2}{\mathrm{P}}}
 \newcommand{\chemicalelement}[3]{\ce{_{#1}^{#2}#3}}
-\title{\vspace{-25truemm}\Huge{SVMとCIELUV色空間を用いた1型2色覚，2型2色覚の色の見え方の分類}\vspace{55truemm}}
+\title{\vspace{-25truemm}\Huge{SVMとCIELUV色空間を用いた\\1型2色覚，2型2色覚の色の\\見え方の分類}\vspace{55truemm}}
 \author{\huge{坂井~法仁}}
 \date{\LARGE{令和2年2月}\\ \vspace{30truemm}\LARGE{九州大学理学部物理学科\\ 情報理学コース}}
 \begin{document}
@@ -181,72 +192,227 @@
 	\clearpage
 	\setcounter{page}{1}
 	\pagenumbering{arabic}
-	\chapter{序論}
-		\section{色覚異常について}
-			世の中には，X染色体がトリガーとなる先天的な色盲者\cite{Okabe2002a}，色弱者\cite{Sunaga2017}や加齢によって色の見え方が後天的に変化する人\cite{Kuriki2000}がいる．
+	\chapter{序論}\label{chap:intro}
+		\section{ヒトの眼球の構造}
+			ヒトは眼球を使って物を見る．
 
-			前者の場合，多くの人は視細胞にL錐体（L cone），M錐体（M cone），S錐体（S cone），杆体（rod）の4種類を持っているが，色盲者は1種類以上の錐体細胞（cone cell）が先天的に欠損していて\footnote{錐体の数は少ないが完全に欠損している訳ではないという人もいて，こちらは軽度であれば色弱に含めることがある．}，色弱者は欠損は無いものの刺激の光の波長に対する錐体細胞の感度分布が異なっている．
+			眼球の構造を図\Reference{fig:eyes}に示す．
+			\figureinput{width=9.5truecm}{D:/a/figs/eye2.png}{眼球の構造\protect\cite[p.~109]{Sotoyama1985}}{eyes}
+			外界から入射する光は角膜（cornea）と前眼房（前房とも；anterior chamber）を通って水晶体（crystalline lens）に入り，そこで屈折する．
+			更に硝子体（vitreous body）を通って網膜（retina）で結像する\footnote{水晶体のピント調整機能の低下で結像位置が網膜の前後に移動する現象が近視，遠視，老眼である．}．
+			網膜にはL錐体（L cone），M錐体（M cone），S錐体（S cone），杆体（桿体とも；rod）の4種類の視細胞（photoreceptor）が分布している．
+			3種類の錐体は中心窩（fovea）付近に局在していて，十分明るい環境で機能し，波長に対する各々の応答の程度（錐体分光感度；cone fundamental）の差異によって色を知覚できる．
+			杆体は錐体と比べて光への感度が良く，暗所で機能する\cite{Hosoki2014}．
+			杆体は1種類のみである為に色の知覚には無関係であると言われるが，錐体が十分に機能できない暗さで色覚に影響を及ぼしているとする研究もある\cite{Takeshita2014}．
+
+			3種類の錐体の分光感度を波長ごとにプロットした物が図\Reference{fig:fundament}である．
+			横軸は光の波長，縦軸はその波長の光が目に入射した時に錐体がどれだけ応答するかを表していて，最大値が1になるように正規化されている．
+			これは直接の実験結果ではなく，後述する等色実験（color matching experiment）の結果を線型変換して得られるデータである．
+			国際照明委員会（Commission Internationale de l'Éclairage；CIE）が2015年に制定した．
+			\figureinput{width=\linewidth}{D:/a/figs/ConeFundamental.png}{CIE2015\mathdisplaystyle{XYZ}表色系（2\textdegree 視野）から導出される正規化錐体分光感度}{fundament}
+		\section{色覚異常について}
+			世の中には，先天的なX染色体異常がトリガーとなる色盲者\cite{Okabe2002a}，色弱者\cite{Sunaga2017}や，加齢によって後天的に色の見え方が変化する人\cite{Kuriki2000}がいる．
+
+			色盲者は1種類以上の錐体が先天的に欠損していて\footnote{或る錐体の個数は少ないが完全に欠損している訳ではないという人もいて，こちらは軽度であれば色弱に含めることがある．}，色弱者は欠損は無いものの刺激の光の波長に対する錐体の感度分布が異なっている．
 			これらを合わせると，国内では男性の約5\%，女性の約0.2\%が色盲者，色弱者である\cite[p.~4]{doctors2019}．
-			L錐体が欠損している色盲を1型2色覚（protanopia），M錐体が欠損している色盲を2型2色覚（deuteranopia），S錐体が欠損している色盲を3型2色覚（tritanopia）という\footnote{色盲者を表すときは接尾辞が-iaから-eに変化する．\textit{E.g.} protanope．}．
+			L錐体が欠損している色盲を1型2色覚（protanopia），M錐体が欠損している色盲を2型2色覚（deuteranopia），S錐体が欠損している色盲を3型2色覚（tritanopia）という\footnote{色盲者を表す時は，protanopeのように接尾辞が-iaから-eに変化する．}．
 			先天色覚異常の大多数は1型2色覚と2型2色覚である\cite[p.~9]{doctors2014}．
+
+			加齢による色の見え方の変化は，核白内障（nuclear cataract）が原因の水晶体の黄変に伴い，光が錐体に届く前にスペクトルが歪められることによって起こる．
+			特に短波長の光が黄変した水晶体に吸収されやすい為，青紫や青緑等の青系統の色の識別が難しくなる他，液体，炎や電光掲示板が見え辛くなる\cite{Ishihara1998}．
+		\section{色覚シミュレーションについて}
+			情報伝達の手段の一つとして色を用いることはよくある（図\Reference{fig:redtext1}，図\Reference{fig:redtext2}等\footnote{図\Reference{fig:redtext1}，図\Reference{fig:redtext2}のシミュレータはAndroidアプリケーション「色のシミュレータ」を使用した．}）．
+			マジョリティの3色覚者にとっては赤色が強調色や警告色として映るので，特に赤色はよく使用される．
+			\figureinput{width=7.5truecm}{D:/a/figs/S__50315266.jpg}{左上：本学内の掲示①（撮影日：2020年1月17日），右上：元画像の1型2色覚の見え方のシミュレーション，左下：元画像の2型2色覚の見え方のシミュレーション，右下：元画像の3型2色覚の見え方のシミュレーション}{redtext1}
+			\figureinput{width=7.5truecm}{D:/a/figs/S__50315270.jpg}{左上：本学内の掲示②（撮影日：2020年1月17日），右上：元画像の1型2色覚の見え方のシミュレーション，左下：元画像の2型2色覚の見え方のシミュレーション，右下：元画像の3型2色覚の見え方のシミュレーション}{redtext2}
+			また，災害の危険が迫っている際に個々人の情報収集は迅速に行われるべきであり，色情報を加えることで一目で分かるようになっている（図\Reference{fig:yahoo}\footnote{図\protect\Reference{fig:yahoo}のシミュレータはAndroidアプリケーション「Colorblind Pro」を使用した．}\cite{Yahoo2020}）．
 			\begin{figure}[tbp]
 				\centering
 				\begin{tabular}{c}
-					\begin{minipage}{0.4\hsize}
+					\begin{minipage}{0.5\linewidth}
 						\centering
-						\includegraphics[width=5truecm]{D:/a/figs/56.PNG}\caption{可視光のスペクトル画像（波長域：380 nm--780 nm，分析・計測・測位用 アート開発 Labs\protect\cite{Artlabs2019}より引用）}\label{fig:Cspect}
+						\includegraphics[width=6.5truecm]{D:/a/figs/signal.png}
 					\end{minipage}
-					\begin{minipage}{0.1\hsize}
-						\vspace{1truemm}
-					\end{minipage}
-					\begin{minipage}{0.4\hsize}
+					\begin{minipage}{0.5\linewidth}
 						\centering
-						\includegraphics[width=5truecm]{D:/a/figs/prot_imagej_100_56.png}\caption{図\ref{fig:Cspect}の1型2色覚の見え方のシミュレーション（Colorblind Proを使用，以下同様）}\label{fig:Pspect}
+						\includegraphics[width=6.5truecm]{D:/a/figs/prot_imagej_100_signal.png}
 					\end{minipage} \\
-					\begin{minipage}{0.06\hsize}
+					\begin{minipage}{0.06\linewidth}
 						\vspace{10truemm}
 					\end{minipage} \\
-					\begin{minipage}{0.4\hsize}
+					\begin{minipage}{0.5\linewidth}
 						\centering
-						\includegraphics[width=5truecm]{D:/a/figs/deut_imagej_100_56.png}\caption{図\ref{fig:Cspect}の2型2色覚の見え方のシミュレーション}\label{fig:Dspect}
+						\includegraphics[width=6.5truecm]{D:/a/figs/deut_imagej_100_signal.png}
 					\end{minipage}
-					\begin{minipage}{0.1\hsize}
-						\vspace{1truemm}
-					\end{minipage}
-					\begin{minipage}{0.4\hsize}
+					\begin{minipage}{0.5\linewidth}
 						\centering
-						\includegraphics[width=5truecm]{D:/a/figs/trit_imagej_100_56.png}\caption{図\ref{fig:Cspect}の3型2色覚の見え方のシミュレーション}\label{fig:Tspect}
+						\includegraphics[width=6.5truecm]{D:/a/figs/trit_imagej_100_signal.png}
 					\end{minipage}
 				\end{tabular}
+				\captiondot{左上：災害情報の危険度別の色，右上：元画像の1型2色覚の見え方のシミュレーション，左下：元画像の2型2色覚の見え方のシミュレーション，右下：元画像の3型2色覚の見え方のシミュレーション}\label{fig:yahoo}
 			\end{figure}
-			図\Reference{fig:Cspect}--\Reference{fig:Tspect}は可視光のスペクトル画像とそれに1型2色覚，2型2色覚，3型2色覚のシミュレーションを実行した結果である．
+
+			しかし，1型2色覚，2型2色覚者にとって赤色は強調色になり得ないし，災害時に慌てていれば似た色を見誤って被害に遭う可能性もある．
+			故に，特に情報伝達としての色の組み合わせは色覚異常があることによって識別しづらくならない方が良い．
+			また，色覚異常の知識がないデザイナーが例えば1型2色覚のことを知って「彼らは赤色が見えない」と思い込むと，そのデザイナーが単独でデザインした時に確かに赤色の使用は減るかもしれないが，実際にそれで色覚異常当事者たちにとって識別しやすくなっているかどうか分からない．
+			以上のことを踏まえると，情報伝達として色を用いる際は複数の当事者に色の見え方を聞きながらデザインすることになる．
+			ただ，この調整がデザイナー，当事者双方に大きな負担になり得るのは想像に難くない．
+
+			この負担を減らせるツールとして色盲のシミュレータ（色覚シミュレータとも呼ばれる）がある．
+			色覚シミュレータは多数あるが，その多くはBrattelらが開発したアルゴリズム\cite{Brettel1997}をベースにしている．
+			Brattelらのアルゴリズムは，画像の\mathdisplaystyle{RGB}値を\mathdisplaystyle{LMS}色空間（\mathdisplaystyle{LMS} color space）\footnote{3種類の錐体の応答値を3次元空間にプロットすることで構成される．}に座標変換してから，各色覚特性に合わせた適切な処理を行い，\mathdisplaystyle{RGB}色空間に逆変換する．
+			シミュレータを用いることで，ディスプレイに映し出された画像をリアルタイムに色変換させることが可能になり，マジョリティである3色覚者でも2色覚の見え方を擬似体験できるようになった．
+			\begin{figure}[tbp]
+				\centering
+				\begin{tabular}{c}
+					\begin{minipage}{0.5\linewidth}
+						\centering
+						\includegraphics[width=7.5truecm]{D:/a/figs/56.PNG}
+					\end{minipage}
+					\begin{minipage}{0.5\linewidth}
+						\centering
+						\includegraphics[width=7.5truecm]{D:/a/figs/prot_imagej_100_56.png}
+					\end{minipage} \\
+					\begin{minipage}{0.06\linewidth}
+						\vspace{10truemm}
+					\end{minipage} \\
+					\begin{minipage}{0.5\linewidth}
+						\centering
+						\includegraphics[width=7.5truecm]{D:/a/figs/deut_imagej_100_56.png}
+					\end{minipage}
+					\begin{minipage}{0.5\linewidth}
+						\centering
+						\includegraphics[width=7.5truecm]{D:/a/figs/trit_imagej_100_56.png}
+					\end{minipage}
+				\end{tabular}
+				\captiondot{左上：可視光のスペクトル画像（波長域：380 nm--780 nm），右上：元画像の1型2色覚の見え方のシミュレーション，左下：元画像の2型2色覚の見え方のシミュレーション，右下：元画像の3型2色覚の見え方のシミュレーション}\label{fig:spect}
+			\end{figure}
+			図\Reference{fig:spect}は可視光のスペクトル画像\footnote{分析・計測・測位用 アート開発 Labs\protect\cite{Artlabs2019}より引用．}とそれに1型2色覚，2型2色覚，3型2色覚のシミュレーションを実行した結果である\footnote{図\protect\Reference{fig:spect}のシミュレータはAndroidアプリケーション「Colorblind Pro」を使用した．}．
+			
 			1型2色覚と2型2色覚の色の見え方は似ている．
-			図\Reference{fig:fundament}は国際照明委員会（Commission Internationale de l'Éclairage；CIE）が2015年に制定した2\textdegree 視野のCIE2015\mathdisplaystyle{XYZ}表色系（CIE2015\mathdisplaystyle{XYZ} color system）から導出される正規化錐体分光感度（normalized cone fundamental）である．
-			\figureinput{width=\linewidth}{D:/a/figs/ConeFundamental.png}{CIE2015\mathdisplaystyle{\bm{XYZ}}表色系（2\textdegree 視野）から導出される正規化錐体分光感度}{fundament}
-			L錐体とM錐体の錐体分光感度の分布は近くにあり，3種類の錐体の応答値を3次元空間にプロットすることで構成される\mathdisplaystyle{LMS}色空間（\mathdisplaystyle{LMS} color space）は\mathdisplaystyle{L}軸の基底ベクトルと\mathdisplaystyle{M}軸の基底ベクトルが近い向きを向いている斜交座標系になっていて，1型2色覚に対応する平面\mathdisplaystyle{L=0}と2型2色覚に対応する平面\mathdisplaystyle{M=0}も近い．
+			この原因として，図\Reference{fig:fundament}から分かるように，L錐体とM錐体の錐体分光感度の分布は近くにあり，\mathdisplaystyle{LMS}色空間は\mathdisplaystyle{L}軸の基底ベクトルと\mathdisplaystyle{M}軸の基底ベクトルが近い向きを向いている斜交座標系になっている（図\Reference{fig:LMS}参照）．
+			\begin{figure}[tbp]
+				\centering
+				\begin{tikzpicture}
+					\coordinate (O) at (0,0);
+					\coordinate (A) at (-0.5,-1);
+					\coordinate (B) at (0.5,-1);
+					\coordinate (C) at (1.7320508,1);
+					\draw[->, red, very thick] (O)--(A);
+					\draw[->, green, very thick] (O)--(B);
+					\draw[->, blue, very thick] (O)--(C);
+					\draw (O)node[left]{\mathdisplaystyle{\mathrm{O}}};
+					\draw (A)node[below left]{\mathdisplaystyle{L}};
+					\draw (B)node[below right]{\mathdisplaystyle{M}};
+					\draw (C)node[above right]{\mathdisplaystyle{S}};
+				\end{tikzpicture}
+				\captiondot{\protect\mathdisplaystyle{LMS}色空間の座標軸のイメージ（実際の座標軸同士の為す角はこの通りでない）}\label{fig:LMS}
+			\end{figure}
 			1型2色覚と2型2色覚の色の見え方の類似性はここからきていると考えられる．
 
-			加齢による色の見え方の変化は核白内障（nuclear cataract）に伴う水晶体（crystalline lens）の黄変によって光が錐体に届く前にスペクトルが歪められることによって起こる．
-			短波長の光が吸収されやすい為，青紫や青緑等の青系統の色の識別が難しくなる他，液体，炎や電光掲示板が見え辛くなる\cite{Ishihara1998}．
-		\section{カラーユニバーサルデザイン，色覚シミュレーションについて}
-			色盲者や色弱者でも識別しやすい色の組み合わせを用いて情報伝達を行うカラーユニバーサルデザインが進められている．
-			多くの色覚異常当事者の協力の下でカラーユニバーサルデザイン配色が考案される（\cite[pp.~1091--1099]{Okabe2002c}，\cite{cudo2018}等），どんな人でも適切に識別できる組み合わせのチョークが開発される\cite{Rikagaku2020}，JIS Z 9013（図記号―安全色及び安全標識―安全色の色度座標の範囲及び測定方法）が改正される\cite{Nakano2018}等である．
-			また，Brattelらが1型2色覚，2型2色覚，3型2色覚の色の見え方をシミュレートするアルゴリズムを発表\cite{Brettel1997}してからは，少しずつ改良を加える形で様々なシミュレータが作られ，3色覚者でも彼らの見え方を疑似体験できるようになった．
-
+			なお，色覚シミュレータが実際の色盲者の見え方を忠実に再現できているかを検証するのは難しい．
+			色盲の理論はあるので3色覚者はそれから2色覚者の見え方を予測することはできるが実体験しようがなく，2色覚者はシミュレーションで色が変化したかを感知できない為である．
+			従って，3色覚者はシミュレータを過信せず，当事者から適宜意見を貰うことになる．
+		\section{カラーユニバーサルデザインについて}
+			Brattelらのアルゴリズムの恩恵は他にもある．
+			それは，色盲者や色弱者でも識別しやすい色の組み合わせを用いて情報伝達を行うカラーユニバーサルデザインを考慮しやすくなったということである．
+			近年，多くの色覚異常当事者の協力の下でカラーユニバーサルデザイン配色が考案される（\cite[pp.~1091--1099]{Okabe2002c}，\cite{cudo2018}等），どんな人でも適切に識別できる組み合わせのチョークが開発される\cite{Rikagaku2020}，JIS Z 9013（図記号―安全色及び安全標識―安全色の色度座標の範囲及び測定方法）が改正される\cite{Nakano2018}等の活動が行われてきた．
+			今後もこれらの活動が広がっていく中で，色覚シミュレータを上手く活用すれば当事者と意見を摺り合わせる回数を減らせる可能性が高くなり，デザイナー，当事者双方の負担を軽減でき得るからである．
+		\section{本論文の目的}
 			しかし，Brattelらのアルゴリズムを零から実装すると，前処理として可視光波長域上での数値積分を3回，3次正方行列の逆行列の計算を1回，3次元ベクトルの外積を2回実行し，更に各色毎に3次正方行列と3次元ベクトルの乗算を3回ずつ行わなければならず，24 bitの\mathdisplaystyle{RGB}色空間で\mathdisplaystyle{2^{24}}色\footnote{\mathdisplaystyle{2^{24}=16{,}777{,}216}．}全てに亘って変換を掛けながら当事者と見え方を摺り合わせていくのは大変な時間を要する．
 			その上，実装や改良に際して色彩学や生理学に関する必要な知識が多く，専門外の人が取り組みにくくなっていると言わざるを得ない．
-		\section{本稿の目的}
-			そこで本稿では，人口が比較的多く，色の見え方が類似している1型2色覚，2型2色覚に着目する．
-			本学芸術工学研究院デザイン人間科学部門の須長正治准教授が研究されているnatural color system（NCS）に関する色のデータセット\footnote{本来は1950色であるが，手元に届いた時点でS2075-Y60RとS3050-R20Bが同梱されていなかったという．従って，以下で「NCS」と言う時はこれらを除いた1948色を指す．}を用いて，NCSのAdobe\mathdisplaystyle{RGB}座標，サポートベクトルマシン（support vector machine；SVM），Gauß過程（Gaussian process；GP）によるBayes最適化（Bayesian optimization）でNCSの色を1型2色覚，2型2色覚それぞれの色の見え方に分類できることを示す．
+
+			そこで本論文では，人口が比較的多く，色の見え方が類似している1型2色覚，2型2色覚に着目する．
+			この2種類の色覚で識別しやすい配色を予め求めていれば実際のデザイン時に繰り返し活用できるので，機械学習を用いて効率的に配色セット設計を行う．
+			本学芸術工学研究院デザイン人間科学部門の須長正治准教授が研究されているnatural color system（NCS）に関する色のデータセット\footnote{本来は1950色であるが，手元に届いた時点でS2075-Y60RとS3050-R20Bが同梱されていなかったという．従って，以下で「NCS」と言う時はこれらを除いた1948色を指す．}を用いて，NCSのAdobe\mathdisplaystyle{RGB}\footnote{1998年考案．}座標，サポートベクトルマシン（support vector machine；SVM），Gauß過程（Gaussian process；GP）によるBayes最適化（Bayesian optimization）でNCSの色を1型2色覚，2型2色覚それぞれの色の見え方に分類できることを示す．
 			更に，それで得たパラメータと1948色のNCS全体を用いて，Adobe\mathdisplaystyle{RGB}色空間上の非負格子点（\mathdisplaystyle{2^{24}}色）全てにおける各2色覚での色の見え方を予測する．
 			各非負格子点の正解ラベルが未知であることを踏まえ，色差（color difference）\footnote{2つの色の区別しやすさに関する定量的指標．}が定義されている均等色空間（uniform color space）の一つ，CIE1976\mathdisplaystyle{L^\ast u^\ast v^\ast}色空間（CIELUV色空間）\cite[p.~64]{Yaguchi2017b}に座標変換して予測ラベルの代表色との色差による精度評価も行う．
-	\chapter{先行研究}
-		HuangらはBrattelらのアルゴリズムを基に，「変換の自然さ」を維持しながら色差を保つ1型2色覚，2型2色覚への色変換を提案している\cite{Huang2007}．
-		「変換の自然さ」を維持する為に，（１）変換前後で輝度（luminance）を変えない，（２）変換前で同じ色相（hue）を持つ2色は変換後も同じ色相を持つ，（３）変換前で同じ彩度（saturation）を持つ2色は変換後も同じ彩度を持つように，CIE1976\mathdisplaystyle{L^\ast a^\ast b^\ast}色空間（CIELAB色空間）上の\mathdisplaystyle{a^\ast b^\ast}平面を回転する．
-		その回転角は，変換前の色差と合成変換（\mathdisplaystyle{\textrm{Brattel}\circ\textrm{Huang}}）後の色差の差の平方和の誤差関数と（\emph{一旦省略}）．
-	\chapter{実験と結果}
+	\chapter{色空間の歴史と概要}
+		既に第\Reference{chap:intro}章でCIE2015\mathdisplaystyle{XYZ}表色系（2\textdegree 視野），\mathdisplaystyle{LMS}色空間，Adobe\mathdisplaystyle{RGB}色空間，CIELUV色空間が登場しているが，本章で一度これらを整理する．
+		なお，2015年の複数のデータや色空間間座標変換の式は入手できなかった為，以下ではそれよりもやや古い物を掲載する．
+		\section{分光視感効率}
+			ヒトが感じる色の明るさ（分光視感効率，比視感度；luminous efficiency）はその波長によって異なる．
+			例えば，同じエネルギーでも緑色は明るく見え，紫外域，赤外域には明るさを感じない．
+			分光視感効率は波長の非負有界連続関数\mathdisplaystyle{V\colon\parentheses{0,\infty}\to\squarebrackets{0,1};\lambda\mapsto V\parentheses{\lambda}}で表される\footnote{適当な集合\mathdisplaystyle{S\in\squarebrackets{0,\infty}}に対して，積分%
+				\begin{equation*}
+					\int_S{V\parentheses{\lambda}}\,d\lambda
+				\end{equation*}
+				は測度になる．Lebesgue積分論によると，任意の測度\mathdisplaystyle{\mu}と任意の一点集合\mathdisplaystyle{\braces{a}}について\mathdisplaystyle{\mu\parentheses{\braces{a}}=0}となる．更に，明らかに%
+				\begin{equation*}
+					\lim_{\lambda\to\positivevalue{0}}{V\parentheses{\lambda}}=\lim_{\lambda\to\infty}{V\parentheses{\lambda}}=0
+				\end{equation*}
+				である．この為，以下では始域としての\mathdisplaystyle{\parentheses{0,\infty}}と\mathdisplaystyle{\squarebrackets{0,\infty}}を明確に区別しない．}．
+			ここで，\mathdisplaystyle{\lambda}\,[nm]は光の波長である．
+			Judd--Vos修正分光視感効率\cite{Vos1978}を図\Reference{fig:le}に示す．
+			\figureinput{width=\linewidth}{D:/a/figs/le.png}{Judd--Vos修正分光視感効率\mathdisplaystyle{V\parentheses{\lambda}}}{le}
+			\mathdisplaystyle{V\parentheses{\lambda}}は\mathdisplaystyle{\lambda\sim{}}\SI{555}{nm}で極大かつ最大となる．
+
+			光の放射が波長\mathdisplaystyle{\lambda}について放射束（radiant flux）\mathdisplaystyle{\greekPHI_\textrm{r}\parentheses{\lambda}}\,[W]を持つならば，測光量（luminous quantity）\mathdisplaystyle{\greekPHI_\textrm{l}}\,[lm]は
+			\begin{equation*}
+				\greekPHI_\textrm{l}=683\int_0^\infty{\greekPHI_\textrm{r}\parentheses{\lambda}V\parentheses{\lambda}}\,d\lambda
+			\end{equation*}
+			で求まる\footnote{\mathdisplaystyle{[\textrm{lm}]=[\textrm{cd}\,\textrm{sr}]}である．}．
+			比例定数の683\,lm\,\mathdisplaystyle{\textrm{W}^{\negativevalue{1}}}は国際単位系（international system of units）で定められた発光効率（luminous efficiency）\mathdisplaystyle{K_\textrm{cd}}である．
+		\section{等色関数と\mathdisplaystyle{RGB}色空間}
+			マジョリティは3種類の錐体を持つので，波長の異なる3種類の単色光を上手く混ぜ合わせれば任意の光を再現できると言えそうである．
+			適当なスペクトルを持つ色を\mathdisplaystyle{\anglebrackets{C}}とし，この輝度（luminance）を\mathdisplaystyle{L_C}\,[cd\,\mathdisplaystyle{\textrm{m}^\negativevalue{2}}]とする．
+			原刺激（reference stimulus）\mathdisplaystyle{\anglebrackets{R}}，\mathdisplaystyle{\anglebrackets{G}}，\mathdisplaystyle{\anglebrackets{B}}によって\mathdisplaystyle{\anglebrackets{C}}と同じに見える色が再現できた時，条件等色（metamerism）といい，
+			\begin{equation*}
+				L_C\anglebrackets{C}\equiv \easymatrix{L_R & L_G & L_B}\easymatrix{\anglebrackets{R} \\ \anglebrackets{G} \\ \anglebrackets{B}}
+			\end{equation*}
+			と表す．
+			ここで得られる\mathdisplaystyle{\parentheses{L_R,L_G,L_B}}にある定数倍を施して得られる\mathdisplaystyle{\parentheses{R,G,B}}の空間を\mathdisplaystyle{RGB}色空間という．
+			また，このようにして，調べたい色\mathdisplaystyle{\anglebrackets{C}}のスペクトルを変えながら条件等色となる\mathdisplaystyle{L_R}，\mathdisplaystyle{L_G}，\mathdisplaystyle{L_B}を調べることを等色実験という．
+			更に，\mathdisplaystyle{\anglebrackets{C}=\anglebrackets{\lambda\,\textrm{[nm]}}}の時（則ち調べたい色が単色光の時）のこの\mathdisplaystyle{R}，\mathdisplaystyle{G}，\mathdisplaystyle{B}を等色関数（color maching function）といい，\mathdisplaystyle{\bar{r}\parentheses{\lambda}}，\mathdisplaystyle{\bar{g}\parentheses{\lambda}}，\mathdisplaystyle{\bar{b}\parentheses{\lambda}}と表す．
+			CIE1931での\mathdisplaystyle{\anglebrackets{R}}，\mathdisplaystyle{\anglebrackets{G}}，\mathdisplaystyle{\anglebrackets{B}}はそれぞれ\SI{700.0}{nm}，\SI{546.1}{nm}，\SI{435.8}{nm}で定められている．
+			Stiles--Burchの等色関数\mathdisplaystyle{\bar{r}\parentheses{\lambda}}，\mathdisplaystyle{\bar{g}\parentheses{\lambda}}，\mathdisplaystyle{\bar{b}\parentheses{\lambda}}（\cite{Stiles1955,Stiles1959}より）を図\Reference{fig:matching}に示す\footnote{Stiles--Burchの等色関数における\mathdisplaystyle{\anglebrackets{R}}，\mathdisplaystyle{\anglebrackets{G}}，\mathdisplaystyle{\anglebrackets{B}}はそれぞれ\SI{648.6}{nm}，\SI{526.4}{nm}，\SI{445.3}{nm}であり，CIE1931\mathdisplaystyle{XYZ}のそれとは異なる．}．
+			\figureinput{width=\linewidth}{D:/a/figs/RGBcmf.png}{Stiles--Burchの等色関数}{matching}
+			暗い色の線が2\textdegree 視野，明るい色の線が10\textdegree 視野である\footnote{2\textdegree 視野は中心窩付近に対応する視野であるが，黄斑（macula）が短波長の光を吸収しやすいことから，その影響を避ける為に10\textdegree 視野を用いることもある．}．
+			\mathdisplaystyle{\lambda\sim{}}\SI{500}{nm}で\mathdisplaystyle{\bar{r}\parentheses{\lambda}<0}となっているのは特筆すべき点である\footnote{\mathdisplaystyle{\bar{g}\parentheses{\lambda}}，\mathdisplaystyle{\bar{b}\parentheses{\lambda}}についてもこれらが負の値を取るような\mathdisplaystyle{\lambda}は存在する．}．
+			これは，例えば2\textdegree 視野で
+			\begin{equation*}
+				L_{500\,\textrm{nm}}\anglebrackets{500\,\textrm{nm}}\equiv \easymatrix{\negativevalue{0.29500} & 0.49060 & 0.10749}\easymatrix{\anglebrackets{648.6\,\textrm{nm}} \\ \anglebrackets{526.4\,\textrm{nm}} \\ \anglebrackets{445.3\,\textrm{nm}}}
+			\end{equation*}
+			ということになっているのだが，実験の上では
+			\begin{equation*}
+				L_{500\,\textrm{nm}}\anglebrackets{500\,\textrm{nm}}+0.29500\anglebrackets{648.6\,\textrm{nm}}\equiv0.49060\anglebrackets{526.4\,\textrm{nm}}+0.10749\anglebrackets{445.3\,\textrm{nm}}
+			\end{equation*}
+			で条件等色になったことを意味している．
+
+			測光量と同様に，
+			\begin{equation*}
+				C\anglebrackets{C}=\int_0^\infty{a\parentheses{\lambda}\anglebrackets{\lambda\,\textrm{[nm]}}}\,d\lambda
+			\end{equation*}
+			を持つならば，その光の色は
+			\begin{equation*}
+				\easymatrix{R \\ G \\ B}=\int_0^\infty{a\parentheses{\lambda}\easymatrix{\bar{r}\parentheses{\lambda} \\ \bar{g}\parentheses{\lambda} \\ \bar{b}\parentheses{\lambda}}}\,d\lambda
+			\end{equation*}
+			で表せる．
+		\section{CIE1931\mathdisplaystyle{XYZ}表色系}
+			\mathdisplaystyle{RGB}色空間は等色関数の性質から負の値も考える必要がある．
+			しかし，1930年前後は色の計算を手計算で行っていて，負の値が多くの計算間違いを引き起こした為，全てが非負となる別の色空間が求められるようになっていった．
+			そこで定義されたのがCIE1931\mathdisplaystyle{XYZ}表色系である\footnote{CIE2015\mathdisplaystyle{XYZ}はCIE1931\mathdisplaystyle{XYZ}をより新しくした物である．}．
+	\chapter{関連研究}
+		HuangらはBrattelらのアルゴリズムを基に，画像から1型2色覚者，2型2色覚者でも識別しやすい色の組み合わせを導出して色変換する計算手法を提案している\cite{Huang2007}．
+		大まかな考え方は「変換の自然さ」を維持しながら色差を保つ色変換を最適化で見つけることである．
+		「変換の自然さ」を維持する為に，（１）変換前後で輝度を変えない，（２）変換前で同じ色相（hue）を持つ2色は変換後も同じ色相を持つ，（３）変換前で同じ彩度（saturation）を持つ2色は変換後も同じ彩度を持つように，CIE1976\mathdisplaystyle{L^\ast a^\ast b^\ast}色空間（CIELAB色空間）上の\mathdisplaystyle{a^\ast b^\ast}平面を回転する．
+		その回転角は，変換前の色差と合成変換（\mathdisplaystyle{\textrm{Brattel}\circ\textrm{Huang}}）後の色差の差の平方和と変換前後での色差の平方和の非負定数倍を足し，これを誤差関数として最小化することで導出する．
+		赤色の花や草木が写った写真に対して手法を適用した結果，変換前を2色覚者が見たら全体的にくすんだ黄色に見えていたが，変換後は花がマゼンタ色に変化し，2色覚者には青紫色に見えるようになり，花と草木を識別できるようになった．
+		当研究は写真や既成のポスター等の掲示物について元々の印象をあまり損なわずに1型2色覚，2型2色覚への対応が為されるようにリデザインする際には有効であると考えられ，カラーユニバーサルデザインを推進する上で役立つと言える．
+		しかし，実際には多少色が変わる為，現実を色で描写する際に3色覚者に誤解を招く可能性がある．
+		また，誤差関数の第2項の定数係数はハイパーパラメータであり，この設定によって特に3色覚での色の見え方が大きく変化し得ることから，実用時は3色覚者，2色覚者（もしくは色覚シミュレータ）が共同で出力を見ながらパラメータを微調整する必要性が生じてしまう．
+		本論文では，光源の設定という最小限の仮定からSVM＋Bayes最適化とCIELUV色空間上の色差の代数計算，解析計算のみで色を分類する為，一度分類作業が完了すれば使い回しが可能で，零から掲示物をデザインする時にも使える．
+
+		FuntとZhuは2型2色覚の色の見え方をBrattelらのアルゴリズムに依存しない形で計算する手法を検討している\cite{Funt2018}．
+		24 bit s\mathdisplaystyle{RGB}の画像をCIE1931\mathdisplaystyle{XYZ}表色系に座標変換し，Hunt--Pointer--Estévez（HPE）変換行列で\mathdisplaystyle{LMS}色空間に変換する．
+		更に\mathdisplaystyle{M=0}でM錐体の応答を無くして逆変換でs\mathdisplaystyle{RGB}画像に戻す．
+		以上の変換前後の対を畳み込みニューラルネットワーク（convolutional neural network）の教師データにする．
+		複数の写真に適用した結果，変換前後で大きな変化が無く，赤色や緑色も残ってしまった．
+		2型2色覚が単純な\mathdisplaystyle{M=0}平面上での見え方をしていないという結論が得られている．
+		本論文の2色覚変換にはBrattelらのアルゴリズムを採用していて，CIELUV色空間上の色差で分類精度の評価を行っている為，本来見えない筈の色が見える現象に翻弄されにくくなっている．
+	\chapter{実験}
 		\section{データセットの説明}
-			本稿で使用するデータセットはNCS 1948色のAdobe\mathdisplaystyle{RGB}座標（整数値への四捨五入前，但し，計算値が負になった物は0にしてある），及び，1型2色覚，2型2色覚それぞれについて各色を43クラスでラベリングした結果である．
+			本論文で使用するデータセットはNCS 1948色のAdobe\mathdisplaystyle{RGB}座標（整数値への四捨五入前，但し，計算値が負になった物は0にしてある），及び，1型2色覚，2型2色覚それぞれについて各色を43クラスでラベリングした結果である．
 			データセットの概要を表\Reference{tab:dataset1}，表\Reference{tab:dataset2}に示す．
 			以降，列名に表れる「P」は1型2色覚，「D」は2型2色覚のことを意味するものとする．
 			\tableinput{l|lrrrrrr}{ & NCS代表色 & Adobe\(R\) & Adobe\(G\) & Adobe\(B\) & \(\#\textrm{P}\) & \(\#\textrm{D}\) & \(\#\parentheses{\textrm{P}\cap\textrm{D}}\) \\ \hline
@@ -277,9 +443,9 @@
 				b-Wt & S0505-R90B & 224.6986 & 229.3882 & 233.0692 & 24 & 21 & 16 \\
 				b-plGy & S0907-R90B & 211.9650 & 218.4358 & 224.1348 & 45 & 46 & 23 \\
 				b-ltGy & S3005-R80B & 164.4555 & 168.6782 & 174.3469 & 34 & 35 & 12 \\
-				b-mdGy & S6005-R80B & 103.6745 & 107.1785 & 114.0519 & 44 & 52 & 15 \\
-				b-dkGy & S7010-R90B & 73.8830 & 81.1664 & 91.7979 & 31 & 35 & 9}{データセットの概要}{dataset1}
+				b-mdGy & S6005-R80B & 103.6745 & 107.1785 & 114.0519 & 44 & 52 & 15}{データセットの概要}{dataset1}
 			\tableinput{l|lrrrrrr}{ & NCS代表色 & Adobe\(R\) & Adobe\(G\) & Adobe\(B\) & \(\#\textrm{P}\) & \(\#\textrm{D}\) & \(\#\parentheses{\text{P}\cap\text{D}}\) \\ \hline
+				b-dkGy & S7010-R90B & 73.8830 & 81.1664 & 91.7979 & 31 & 35 & 9 \\
 				b-Bk & S8010-R50B & 57.8759 & 50.8047 & 62.8086 & 3 & 1 & 1 \\
 				vp-pB & S0515-R90B & 204.6848 & 217.5930 & 230.3978 & 25 & 29 & 18 \\
 				lg-pB & S1515-R90B & 179.8229 & 192.8497 & 206.1419 & 38 & 36 & 16 \\
@@ -303,7 +469,7 @@
 		\section{実験1}
 			\subsection{手続き}
 				実験1では，本データセットを1型2色覚，2型2色覚の色の見え方クラスにそれぞれ分類する分類器を作成する．
-				外から与えた乱数シードを基にデータセットを80/20に分割する．
+				乱数シードを基にデータセットを80/20に分割する．
 				その上で，訓練データに対してSVMの分類器を導入する．
 				カーネルはradial basis function kernelで固定し，\texttt{sklearn{.}svm{.}SVC}のハイパーパラメータ\mathdisplaystyle{\gamma}，\mathdisplaystyle{C}，\textit{class\_weight}を学習する\footnote{これ以外のパラメータはscikit-learn 0.22.1の\texttt{sklearn{.}svm{.}SVC}の初期設定のままである．}．
 				ハイパーパラメータの推定にGPによるBayes最適化を用いる．
@@ -323,45 +489,40 @@
 					\mathdisplaystyle{C} & \mathdisplaystyle{1.0486\times{10}^6} & \mathdisplaystyle{1.0412\times{10}^6} \\
 					\textit{class\_weight} & \textit{None} & ``balanced'' \\
 					正解率（訓練データ） & 0.9936 & 0.9929 \\
-					正解率（テストデータ） & 0.9077 & 0.9154}{実験1の結果の数値表}{result1}
+					正解率（テストデータ） & 0.9077 & 0.9154}{実験1の結果}{result1}
 
 				2型2色覚は式\Equationreference{eq:gamma}--\Equationreference{eq:classweight}右辺内部で収束している．
 				しかし，1型2色覚は\mathdisplaystyle{C=1.0486\times10^6\gtrsim2^{20}}より式\Equationreference{eq:C}右辺の上限に一致してしまっている．
 				正解率から推測するに，1型2色覚の最適な\mathdisplaystyle{C}は\mathdisplaystyle{2^{20}}よりもやや大きいと考えられる．
 
-				テストデータにおける混同行列（confusion matrix）を図\Reference{fig:conP}--\Reference{fig:conD1}に示す．
+				テストデータにおける混同行列（confusion matrix）を図\Reference{fig:confusion}に示す．
 				上段は各々の絶対数，下段は正解クラス別に割合を取った物である．
 				\begin{figure}[tbp]
 					\centering
 					\begin{tabular}{c}
-						\begin{minipage}{0.4\hsize}
+						\begin{minipage}{0.5\linewidth}
 							\centering
-							\includegraphics[width=5truecm]{D:/a/figs/Pconmat.png}\caption{1型2色覚の混同行列}\label{fig:conP}
+							\includegraphics[width=7.5truecm]{D:/a/figs/Pconmat.png}
 						\end{minipage}
-						\begin{minipage}{0.1\hsize}
-							\vspace{1truemm}
-						\end{minipage}
-						\begin{minipage}{0.4\hsize}
+						\begin{minipage}{0.5\linewidth}
 							\centering
-							\includegraphics[width=5truecm]{D:/a/figs/Dconmat.png}\caption{2型2色覚の混同行列}\label{fig:conD}
+							\includegraphics[width=7.5truecm]{D:/a/figs/Dconmat.png}
 						\end{minipage} \\
-						\begin{minipage}{0.06\hsize}
+						\begin{minipage}{0.06\linewidth}
 							\vspace{10truemm}
 						\end{minipage} \\
-						\begin{minipage}{0.4\hsize}
+						\begin{minipage}{0.5\linewidth}
 							\centering
-							\includegraphics[width=5truecm]{D:/a/figs/Pconmat2.png}\caption{図\ref{fig:conP}の正解クラス別割合}\label{fig:conP1}
+							\includegraphics[width=7.5truecm]{D:/a/figs/Pconmat2.png}
 						\end{minipage}
-						\begin{minipage}{0.1\hsize}
-							\vspace{1truemm}
-						\end{minipage}
-						\begin{minipage}{0.4\hsize}
+						\begin{minipage}{0.5\linewidth}
 							\centering
-							\includegraphics[width=5truecm]{D:/a/figs/Dconmat2.png}\caption{図\ref{fig:conD}の正解クラス別割合}\label{fig:conD1}
+							\includegraphics[width=7.5truecm]{D:/a/figs/Dconmat2.png}
 						\end{minipage}
 					\end{tabular}
+					\captiondot{左上：1型2色覚の混同行列，右上：2型2色覚の混同行列，左下：1型2色覚の混同行列の正解クラス別割合，右下：2型2色覚の混同行列の正解クラス別割合}\label{fig:confusion}
 				\end{figure}
-				図\Reference{fig:conP1}，図\Reference{fig:conD1}で対角成分から左または右に4列離れた成分が仄明るく光っている様子が見られる．
+				下段で対角成分から左または右に4列離れた成分が仄明るく光っている様子が見られる．
 				これは，図\Reference{fig:YB}で明度が等しく彩度方向で隣接しているクラス同士の関係であり，Adobe\mathdisplaystyle{RGB}色空間とMunsell表色系という異なる空間ではあるものの，この関係にあるクラスが近くにあった為，誤分類が生じたと考えられる．
 
 				訓練データでの正解率と混同行列を踏まえると，1型2色覚，2型2色覚のいずれもSVM＋Bayes最適化で十分学習できたと言えるであろう．
@@ -374,43 +535,265 @@
 				均等色空間はCIELUVやCIELABの他にCIEDE2000やCAM02-UCS等様々ある\cite{Yaguchi2017b}が，CIELUVは変換が比較的単純である為，計算速度が求められる際には役立つ色空間である．
 				一方で，CIELUVやCIELABは新しい均等色空間と比べて知覚の均一性が弱いという欠点がある\cite[p.~10]{Robertson1977}．
 
-				まず，表\Reference{tab:dataset1}，表\Reference{tab:dataset2}の各代表色を，CIE1931\mathdisplaystyle{XYZ}表色系，\mathdisplaystyle{LMS}色空間を経由して1型2色覚，2型2色覚の\mathdisplaystyle{LMS}に写し，再度CIE1931\mathdisplaystyle{XYZ}を経由してCIELUVに座標変換する．
-				任意の2色\mathdisplaystyle{\boldc_\alpha}，\mathdisplaystyle{\boldc_\beta}間の色差\mathdisplaystyle{\greekDELTA E^{L^\ast u^\ast v^\ast}\parentheses{\boldc_\alpha,\boldc_\beta}}はCIELUV上のEuclid距離で
+				まず，表\Reference{tab:dataset1}，表\Reference{tab:dataset2}の各代表色を，CIE1931\mathdisplaystyle{XYZ}表色系\footnote{変換\mathdisplaystyle{\textrm{24bit Adobe}RGB\to\textrm{CIE1931}XYZ}はAdobe\textregistered のマニュアル\cite{Adobe2005}を参考にした．}，\mathdisplaystyle{LMS}色空間\footnote{CIE標準光源D65下でのHPE変換行列を使用した．}を経由して1型2色覚，2型2色覚の\mathdisplaystyle{LMS}に写し，再度CIE1931\mathdisplaystyle{XYZ}を経由してCIELUVに座標変換する．
+				任意の2色\mathdisplaystyle{c_\alpha}，\mathdisplaystyle{c_\beta}間の色差\mathdisplaystyle{\greekDELTA E^{L^\ast u^\ast v^\ast}\parentheses{c_\alpha,c_\beta}}はCIELUV上のEuclid距離で
 				\begin{equation*}
-					\greekDELTA E\parentheses{\boldc_\alpha,\boldc_\beta}=\norm{\boldc_\beta^{L^\ast u^\ast v^\ast}-\boldc_\alpha^{L^\ast u^\ast v^\ast}}{2}
+					\greekDELTA E^{L^\ast u^\ast v^\ast}\parentheses{c_\alpha,c_\beta}=\norm{c_\beta^{L^\ast u^\ast v^\ast}-c_\alpha^{L^\ast u^\ast v^\ast}}{2}
 				\end{equation*}
 				と表現できる．
-				これを用いて，43色における距離行列を計算すると図\Reference{fig:Pmatrix}，図\Reference{fig:Dmatrix}を得る．
+				これを用いて，43色における距離行列を計算すると図\Reference{fig:distmatrix}を得る．
 				\begin{figure}[tbp]
 					\centering
 					\begin{tabular}{c}
-						\begin{minipage}{0.4\hsize}
+						\begin{minipage}{0.5\linewidth}
 							\centering
-							\includegraphics[width=5truecm]{D:/a/figs/Pmatrix.png}\caption{1型2色覚における代表色の距離行列}\label{fig:Pmatrix}
+							\includegraphics[width=7.5truecm]{D:/a/figs/Pmatrix.png}
 						\end{minipage}
-						\begin{minipage}{0.1\hsize}
-							\vspace{1truemm}
-						\end{minipage}
-						\begin{minipage}{0.4\hsize}
+						\begin{minipage}{0.5\linewidth}
 							\centering
-							\includegraphics[width=5truecm]{D:/a/figs/Dmatrix.png}\caption{2型2色覚における代表色の距離行列}\label{fig:Dmatrix}
+							\includegraphics[width=7.5truecm]{D:/a/figs/Dmatrix.png}
 						\end{minipage}
 					\end{tabular}
+					\captiondot{左：1型2色覚における代表色の距離行列，右：2型2色覚における代表色の距離行列}\label{fig:distmatrix}
 				\end{figure}
 				Munsell表色系（図\Reference{fig:YB}）で近い位置関係にあった対はCIELUV色空間上でも比較的近くにあることが分かる．
 
-				次に，各クラス\mathdisplaystyle{\parentheses{C_i}_{i=1}^{43}}について代表色を\mathdisplaystyle{\hat{\boldc}_i\in C_i}とし，自分自身を除いて最も近い代表色\mathdisplaystyle{\hat{\boldc}_{\tilde{j}\parentheses{i}}}との色差\mathdisplaystyle{\greekDELTA E_i^{L^\ast u^\ast v^\ast}}を距離行列から
+				次に，各クラス\mathdisplaystyle{{\parentheses{C_i}}_{i=1}^{43}}について代表色を\mathdisplaystyle{{\hat{c}}_i\in C_i}とし，自分自身を除いて最も近い代表色\mathdisplaystyle{{\hat{c}}_{\tilde{j}\parentheses{i}}}との色差\mathdisplaystyle{\greekDELTA E_i^{L^\ast u^\ast v^\ast}}を距離行列から
 				\begin{align*}
-					&\greekDELTA E_i=\min{\braces{\mediumverticalline{\greekDELTA E^{L^\ast u^\ast v^\ast}\parentheses{\hat{\boldc}_i,\hat{\boldc}_j}}{i\neq j}}}\textrm{，}\\
-					&\tilde{j}\parentheses{i}\in\operatorname*{arg\,min}_{j\neq i}{\greekDELTA E^{L^\ast u^\ast v^\ast}\parentheses{\hat{\boldc}_i,\hat{\boldc}_j}}
+					&\tilde{j}\parentheses{i}\in\operatorname*{arg\,min}_{j\neq i}{\greekDELTA E^{L^\ast u^\ast v^\ast}\parentheses{{\hat{c}}_i,{\hat{c}}_j}}\textrm{，}\\
+					&\greekDELTA E_i=\greekDELTA E^{L^\ast u^\ast v^\ast}\parentheses{{\hat{c}}_i,{\hat{c}}_{\tilde{j}\parentheses{i}}}
 				\end{align*}
-				で求め，代表色\mathdisplaystyle{\hat{\boldc}_i^{L^\ast u^\ast v^\ast}}を中心とする半径が\mathdisplaystyle{\greekDELTA E_i}である開球\mathdisplaystyle{B\parentheses{\hat{\boldc}_i^{L^\ast u^\ast v^\ast},\greekDELTA E_i}}と，半径がその半分である開球\mathdisplaystyle{B\parentheses{\hat{\boldc}_i^{L^\ast u^\ast v^\ast},\greekDELTA E_i/2}}を考える．
-				以下，便宜的に前者を弱採択域，後者を強採択域と呼ぶ．
+				で求め，代表色\mathdisplaystyle{{\hat{c}}_i^{L^\ast u^\ast v^\ast}}を中心とする半径が\mathdisplaystyle{\greekDELTA E_i}である開球\mathdisplaystyle{B\parentheses{{\hat{c}}_i^{L^\ast u^\ast v^\ast},\greekDELTA E_i}}と，半径がその半分である開球\mathdisplaystyle{B\parentheses{{\hat{c}}_i^{L^\ast u^\ast v^\ast},\greekDELTA E_i/2}}を考える．
+				以下，便宜的に前者を弱採択域，後者を強採択域と呼ぶ（図\Reference{fig:adoption}参照）．
+				\begin{figure}[tbp]
+					\centering
+					\begin{tabular}{c}
+						\begin{minipage}{\linewidth}
+							\centering
+							\begin{tikzpicture}
+								\coordinate (O) at (0,0);
+								\coordinate (A) at (4,3);
+								\coordinate (B) at (4,4);
+								\coordinate (C) at (3,1);
+								\coordinate (D) at (5,0);
+								\coordinate (E) at (5,2.5);
+								\coordinate (F) at (5,4.5);
+								\draw[loosely dashed] (O) -- (A) -- (B) -- cycle;
+								\fill (O) circle [radius=2pt];
+								\fill (A) circle [radius=2pt];
+								\fill (B) circle [radius=2pt];
+								\fill (C) circle [radius=2pt];
+								\draw (O)node[below]{\mathdisplaystyle{\hat{c}_i}};
+								\draw (A)node[below]{\mathdisplaystyle{\hat{c}_j}};
+								\draw (B)node[above]{\mathdisplaystyle{\hat{c}_k}};
+								\draw (C)node[right]{\mathdisplaystyle{c}};
+								\draw (D)node[right]{\mathdisplaystyle{\partial B\parentheses{{\hat{c}}_i^{L^\ast u^\ast v^\ast},\greekDELTA E_i}}};
+								\draw (E)node[right]{\mathdisplaystyle{\partial B\parentheses{{\hat{c}}_j^{L^\ast u^\ast v^\ast},\greekDELTA E_j}}};
+								\draw (F)node[right]{\mathdisplaystyle{\partial B\parentheses{{\hat{c}}_k^{L^\ast u^\ast v^\ast},\greekDELTA E_k}}};
+								\draw (-45:5) arc (-45:225:5cm);
+								\draw (A) circle (1cm);
+								\draw (B) circle (1cm);
+							\end{tikzpicture}
+						\end{minipage} \\
+						\begin{minipage}{0.06\linewidth}
+							\vspace{20truemm}
+						\end{minipage} \\
+						\begin{minipage}{\linewidth}
+							\centering
+							\begin{tikzpicture}
+								\coordinate (O) at (0,0);
+								\coordinate (A) at (4,3);
+								\coordinate (B) at (4,4);
+								\coordinate (C) at (3,1);
+								\coordinate (D) at (2.5,0);
+								\coordinate (E) at (4.5,2.5);
+								\coordinate (F) at (4.5,4.5);
+								\draw[loosely dashed] (O) -- (A) -- (B) -- cycle;
+								\fill (O) circle [radius=2pt];
+								\fill (A) circle [radius=2pt];
+								\fill (B) circle [radius=2pt];
+								\fill (C) circle [radius=2pt];
+								\draw (O)node[below]{\mathdisplaystyle{\hat{c}_i}};
+								\draw (A)node[below]{\mathdisplaystyle{\hat{c}_j}};
+								\draw (B)node[above]{\mathdisplaystyle{\hat{c}_k}};
+								\draw (C)node[right]{\mathdisplaystyle{c}};
+								\draw (D)node[right]{\mathdisplaystyle{\partial B\parentheses{{\hat{c}}_i^{L^\ast u^\ast v^\ast},\fraction{1}{2}\greekDELTA E_i}}};
+								\draw (E)node[right]{\mathdisplaystyle{\partial B\parentheses{{\hat{c}}_j^{L^\ast u^\ast v^\ast},\fraction{1}{2}\greekDELTA E_j}}};
+								\draw (F)node[right]{\mathdisplaystyle{\partial B\parentheses{{\hat{c}}_k^{L^\ast u^\ast v^\ast},\fraction{1}{2}\greekDELTA E_k}}};
+								\draw (-45:2.5) arc (-45:225:2.5cm);
+								\draw (A) circle (0.5cm);
+								\draw (B) circle (0.5cm);
+							\end{tikzpicture}
+						\end{minipage}
+					\end{tabular}
+					\captiondot{上：弱採択域のイメージ，下：強採択域のイメージ}\label{fig:adoption}
+				\end{figure}
+				24 bit Adobe\mathdisplaystyle{RGB}色空間上の各色について実験1で得たSVMで1型2色覚，2型2色覚についてのラベルを予測し，代表色に対して行ったのと同様に各2色覚への写像と座標変換で2色覚のCIELUV座標を求め，その予測ラベルの代表色の弱／強採択域に属していれば弱／強採択されるとする（図\Reference{fig:adoption}の色\mathdisplaystyle{c}の予測ラベルが\mathdisplaystyle{C_i}であるとすると，\mathdisplaystyle{c}は弱採択されるが強採択されない）．
+			\subsection{結果}
+				分類結果をクラス別に集計した結果を表\Reference{tab:result21}--\Reference{tab:result26}に示す．
+				なお，「\mathdisplaystyle{\textrm{P}'}」は1型2色覚でのSVM分類結果，「\mathdisplaystyle{\textrm{P}_\textrm{w}'}」はその分類クラス上で弱採択された物，「\mathdisplaystyle{\textrm{P}_\textrm{s}'}」は強採択された物を表す．
+				「D」については2型2色覚で同様の意味を示す．
+			\tableinput{l|rrr}{ & \(\#\textrm{P}'\) & \(\#\textrm{D}'\) & \(\#\parentheses{\textrm{P}'\cap\textrm{D}'}\) \\ \hline
+				Wt & 31377 & 17583 & 2907 \\
+				plGy & 28298 & 24367 & 5293 \\
+				ltGy & 140108 & 242349 & 15740 \\
+				mdGy & 122770 & 150539 & 20857 \\
+				dkGy & 232508 & 184970 & 21614 \\
+				Bk & 402750 & 340400 & 266528 \\
+				y-Wt & 103936 & 59446 & 42617 \\
+				y-plGy & 205679 & 122695 & 38095 \\
+				y-ltGy & 196167 & 196636 & 39232 \\
+				y-mdGy & 256462 & 359038 & 42390 \\
+				y-dkGy & 205151 & 107913 & 24868 \\
+				vp-Y & 160347 & 122127 & 68861 \\
+				lg-Y & 334141 & 381390 & 80118 \\
+				mg-Y & 396539 & 688404 & 107566 \\
+				dg-Y & 381723 & 375749 & 73040 \\
+				vd-Y & 300874 & 202228 & 72899 \\
+				pl-Y & 359530 & 202534 & 149854 \\
+				sf-Y & 746453 & 478222 & 167422 \\
+				dl-Y & 710716 & 1274158 & 258420 \\
+				dk-Y & 588299 & 1208235 & 228748 \\
+				lt-Y & 1405081 & 721005 & 570017 \\
+				st-Y & 425888 & 501260 & 207420 \\
+				dp-Y & 1206695 & 1079479 & 376267 \\
+				vv-Y & 140658 & 96129 & 29262 \\
+				b-Wt & 39645 & 17363 & 2583 \\
+				b-plGy & 58964 & 82203 & 6365 \\
+				b-ltGy & 100481 & 194246 & 7622 \\
+				b-mdGy & 175929 & 332281 & 11748}{実験2の結果（採択なし）}{result21}
+			\tableinput{l|rrr}{ & \(\#\textrm{P}'\) & \(\#\textrm{D}'\) & \(\#\parentheses{\textrm{P}'\cap\textrm{D}'}\) \\ \hline
+				b-dkGy & 81492 & 124207 & 15222 \\
+				b-Bk & 36231 & 32428 & 5045 \\
+				vp-pB & 139329 & 88204 & 21866 \\
+				lg-pB & 122432 & 208697 & 18188 \\
+				mg-pB & 160575 & 114763 & 20359 \\
+				dg-pB & 192398 & 161755 & 27497 \\
+				vd-pB & 169603 & 53683 & 35852 \\
+				pl-pB & 216066 & 274333 & 124356 \\
+				sf-pB & 189202 & 217637 & 60312 \\
+				dl-pB & 351472 & 491051 & 132165 \\
+				dk-pB & 167737 & 167473 & 95820 \\
+				lt-pB & 1443214 & 1702163 & 933824 \\
+				st-pB & 190276 & 423639 & 31258 \\
+				dp-pB & 3218012 & 1987972 & 1955098 \\
+				vv-pB & 642008 & 966262 & 224085 \\ \hline
+				合計 & 16777216 & 16777216 & 6639300}{実験2の結果（採択なし）\zwspace 続き}{result22}
+			\clearpage
+			\tableinput{l|rrr}{ & \(\#\textrm{P}_\textrm{w}'\) & \(\#\textrm{D}_\textrm{w}'\) & \(\#\parentheses{\textrm{P}_\textrm{w}'\cap\textrm{D}_\textrm{w}'}\) \\ \hline
+				Wt & 0 & 0 & 0 \\
+				plGy & 0 & 0 & 0 \\
+				ltGy & 0 & 0 & 0 \\
+				mdGy & 0 & 0 & 0 \\
+				dkGy & 0 & 0 & 0 \\
+				Bk & 0 & 0 & 0 \\
+				y-Wt & 0 & 0 & 0 \\
+				y-plGy & 0 & 0 & 0 \\
+				y-ltGy & 0 & 0 & 0 \\
+				y-mdGy & 0 & 0 & 0 \\
+				y-dkGy & 0 & 0 & 0 \\
+				vp-Y & 0 & 0 & 0 \\
+				lg-Y & 0 & 0 & 0 \\
+				mg-Y & 0 & 0 & 0 \\
+				dg-Y & 10197 & 31885 & 0 \\
+				vd-Y & 55791 & 106926 & 22575 \\
+				pl-Y & 0 & 0 & 0 \\
+				sf-Y & 0 & 78 & 0 \\
+				dl-Y & 43412 & 41862 & 0 \\
+				dk-Y & 290604 & 458202 & 85154 \\
+				lt-Y & 211248 & 49701 & 10640 \\
+				st-Y & 241 & 0 & 0 \\
+				dp-Y & 569421 & 638624 & 144691 \\
+				vv-Y & 85561 & 35283 & 19685 \\
+				b-Wt & 0 & 0 & 0 \\
+				b-plGy & 0 & 0 & 0 \\
+				b-ltGy & 0 & 0 & 0 \\
+				b-mdGy & 0 & 0 & 0}{実験2の結果（弱採択）}{result23}
+			\tableinput{l|rrr}{ & \(\#\textrm{P}_\textrm{w}'\) & \(\#\textrm{D}_\textrm{w}'\) & \(\#\parentheses{\textrm{P}_\textrm{w}'\cap\textrm{D}_\textrm{w}'}\) \\ \hline
+				b-dkGy & 0 & 0 & 0 \\
+				b-Bk & 0 & 0 & 0 \\
+				vp-pB & 0 & 0 & 0 \\
+				lg-pB & 0 & 0 & 0 \\
+				mg-pB & 0 & 0 & 0 \\
+				dg-pB & 0 & 161563 & 0 \\
+				vd-pB & 0 & 0 & 0 \\
+				pl-pB & 0 & 0 & 0 \\
+				sf-pB & 0 & 0 & 0 \\
+				dl-pB & 0 & 0 & 0 \\
+				dk-pB & 55788 & 114623 & 39233 \\
+				lt-pB & 0 & 0 & 0 \\
+				st-pB & 0 & 0 & 0 \\
+				dp-pB & 163849 & 286178 & 117445 \\
+				vv-pB & 0 & 89715 & 0 \\ \hline
+				合計 & 1486112 & 2014640 & 439423}{実験2の結果（弱採択）\zwspace 続き}{result25}
+			\clearpage
+			\tableinput{l|rrr}{ & \(\#\textrm{P}_\textrm{s}'\) & \(\#\textrm{D}_\textrm{s}'\) & \(\#\parentheses{\textrm{P}_\textrm{s}'\cap\textrm{D}_\textrm{s}'}\) \\ \hline
+				Wt & 0 & 0 & 0 \\
+				plGy & 0 & 0 & 0 \\
+				ltGy & 0 & 0 & 0 \\
+				mdGy & 0 & 0 & 0 \\
+				dkGy & 0 & 0 & 0 \\
+				Bk & 0 & 0 & 0 \\
+				y-Wt & 0 & 0 & 0 \\
+				y-plGy & 0 & 0 & 0 \\
+				y-ltGy & 0 & 0 & 0 \\
+				y-mdGy & 0 & 0 & 0 \\
+				y-dkGy & 0 & 0 & 0 \\
+				vp-Y & 0 & 0 & 0 \\
+				lg-Y & 0 & 0 & 0 \\
+				mg-Y & 0 & 0 & 0 \\
+				dg-Y & 0 & 0 & 0 \\
+				vd-Y & 0 & 0 & 0 \\
+				pl-Y & 0 & 0 & 0 \\
+				sf-Y & 0 & 0 & 0 \\
+				dl-Y & 0 & 94 & 0 \\
+				dk-Y & 7244 & 83513 & 1118 \\
+				lt-Y & 0 & 0 & 0 \\
+				st-Y & 0 & 0 & 0 \\
+				dp-Y & 139260 & 216711 & 6893 \\
+				vv-Y & 0 & 0 & 0 \\
+				b-Wt & 0 & 0 & 0 \\
+				b-plGy & 0 & 0 & 0 \\
+				b-ltGy & 0 & 0 & 0 \\
+				b-mdGy & 0 & 0 & 0}{実験2の結果（強採択）}{result23}
+			\tableinput{l|rrr}{ & \(\#\textrm{P}_\textrm{s}'\) & \(\#\textrm{D}_\textrm{s}'\) & \(\#\parentheses{\textrm{P}_\textrm{s}'\cap\textrm{D}_\textrm{s}'}\) \\ \hline
+				b-dkGy & 0 & 0 & 0 \\
+				b-Bk & 0 & 0 & 0 \\
+				vp-pB & 0 & 0 & 0 \\
+				lg-pB & 0 & 0 & 0 \\
+				mg-pB & 0 & 0 & 0 \\
+				dg-pB & 0 & 2718 & 0 \\
+				vd-pB & 0 & 0 & 0 \\
+				pl-pB & 0 & 0 & 0 \\
+				sf-pB & 0 & 0 & 0 \\
+				dl-pB & 0 & 0 & 0 \\
+				dk-pB & 0 & 0 & 0 \\
+				lt-pB & 0 & 0 & 0 \\
+				st-pB & 0 & 0 & 0 \\
+				dp-pB & 0 & 0 & 0 \\
+				vv-pB & 0 & 0 & 0 \\ \hline
+				合計 & 146504 & 303036 & 8011}{実験2の結果（強採択）\zwspace 続き}{result26}
 	\chapter{結論}
+	\chapter*{謝辞}
+%	本研究を進めるに当たり，指導教官の池田大輔准教授からは多大な助言を賜りました．
+%	研究テーマの決定，冬休み中の急激なテーマ変更のお願いに対しても親身に接し，常に温かいご指導をしてくださったことが本論文の完成に繫がりました．
+%	厚く感謝を申し上げます．
+%	
+%	また，本学芸術工学研究院デザイン人間科学部門の須長正治准教授からは，NCSのデータセットの提供，並びに色彩学や色覚異常についてのご教授を頂きました．
+%	厚く御礼申し上げます．
+%
+%	毎日共に研究を行った池田研究室の皆様には，常に適切な指摘によって研究を支えていただき，大変有意義な1年間の研究生活を過ごせました．
+%	ありがとうございました．
+%	特に同期の永溝孝太君から頂いたアドバイスや彼との他愛ない会話が大きな支えになりました．
+%	ここに感謝の意を表します．
+%
+%	最後になりましたが，本研究を応援し，支援してくださった多くの方々に感謝いたします．
+%	本当にありがとうございました．
 	\clearpage
 	\addcontentsline{toc}{chapter}{\refname}
 	\bibliography{ref}
 	\bibliographystyle{Cpjeconunsrt}
+	%\bibliographystyle{jecon-no-sort}
 	%\bibliographystyle{junsrt}
 	%\bibliographystyle{IEEEtranS}
 \end{document}
