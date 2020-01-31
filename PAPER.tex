@@ -208,8 +208,8 @@
 			3種類の錐体の分光感度を波長ごとにプロットした物が図\Reference{fig:fundament}である．
 			横軸は光の波長，縦軸はその波長の光が目に入射した時に錐体がどれだけ応答するかを表していて，最大値が1になるように正規化されている．
 			これは直接の実験結果ではなく，後述する等色実験（color matching experiment）の結果を線型変換して得られるデータである．
-			国際照明委員会（Commission Internationale de l'Éclairage；CIE）が2015年に制定した．
-			\figureinput{width=\linewidth}{D:/a/figs/ConeFundamental.png}{CIE2015\mathdisplaystyle{XYZ}表色系（2\textdegree 視野）から導出される正規化錐体分光感度}{fundament}
+			国際照明委員会（Commission Internationale de l'Éclairage；CIE）が2015年に制定した，2\textdegree 視野のCIE2015\mathdisplaystyle{XYZ}色空間（CIE2015\mathdisplaystyle{XYZ} color space）
+			\figureinput{width=\linewidth}{D:/a/figs/ConeFundamental.png}{CIE2015\mathdisplaystyle{XYZ}色空間（2\textdegree 視野）から導出される正規化錐体分光感度}{fundament}
 		\section{色覚異常について}
 			世の中には，先天的なX染色体異常がトリガーとなる色盲者\cite{Okabe2002a}，色弱者\cite{Sunaga2017}や，加齢によって後天的に色の見え方が変化する人\cite{Kuriki2000}がいる．
 
@@ -260,7 +260,7 @@
 
 			この負担を減らせるツールとして色盲のシミュレータ（色覚シミュレータとも呼ばれる）がある．
 			色覚シミュレータは多数あるが，その多くはBrattelらが開発したアルゴリズム\cite{Brettel1997}をベースにしている．
-			Brattelらのアルゴリズムは，画像の\mathdisplaystyle{RGB}値を\mathdisplaystyle{LMS}色空間（\mathdisplaystyle{LMS} color space）\footnote{3種類の錐体の応答値を3次元空間にプロットすることで構成される．}に座標変換してから，各色覚特性に合わせた適切な処理を行い，\mathdisplaystyle{RGB}色空間に逆変換する．
+			Brattelらのアルゴリズムは，画像の\mathdisplaystyle{RGB}値を\mathdisplaystyle{LMS}色空間\footnote{3種類の錐体の応答値を3次元空間にプロットすることで構成される．}に座標変換してから，各色覚特性に合わせた適切な処理を行い，\mathdisplaystyle{RGB}色空間に逆変換する．
 			シミュレータを用いることで，ディスプレイに映し出された画像をリアルタイムに色変換させることが可能になり，マジョリティである3色覚者でも2色覚の見え方を擬似体験できるようになった．
 			\begin{figure}[tbp]
 				\centering
@@ -311,7 +311,7 @@
 			1型2色覚と2型2色覚の色の見え方の類似性はここからきていると考えられる．
 
 			なお，色覚シミュレータが実際の色盲者の見え方を忠実に再現できているかを検証するのは難しい．
-			色盲の理論はあるので3色覚者はそれから2色覚者の見え方を予測することはできるが実体験しようがなく，2色覚者はシミュレーションで色が変化したかを感知できない為である．
+			色盲の理論はあるので3色覚者はそれから2色覚者の見え方を予測することはできるが実体験しようがなく，2色覚者はシミュレーションで色が自分の普段の見え方に変化したかを感知できない為である．
 			従って，3色覚者はシミュレータを過信せず，当事者から適宜意見を貰うことになる．
 		\section{カラーユニバーサルデザインについて}
 			Brattelらのアルゴリズムの恩恵は他にもある．
@@ -328,12 +328,12 @@
 			更に，それで得たパラメータと1948色のNCS全体を用いて，Adobe\mathdisplaystyle{RGB}色空間上の非負格子点（\mathdisplaystyle{2^{24}}色）全てにおける各2色覚での色の見え方を予測する．
 			各非負格子点の正解ラベルが未知であることを踏まえ，色差（color difference）\footnote{2つの色の区別しやすさに関する定量的指標．}が定義されている均等色空間（uniform color space）の一つ，CIE1976\mathdisplaystyle{L^\ast u^\ast v^\ast}色空間（CIELUV色空間）\cite[p.~64]{Yaguchi2017b}に座標変換して予測ラベルの代表色との色差による精度評価も行う．
 	\chapter{色空間の歴史と概要}
-		既に第\Reference{chap:intro}章でCIE2015\mathdisplaystyle{XYZ}表色系（2\textdegree 視野），\mathdisplaystyle{LMS}色空間，Adobe\mathdisplaystyle{RGB}色空間，CIELUV色空間が登場しているが，本章で一度これらを整理する．
+		既に第\Reference{chap:intro}章でCIE2015\mathdisplaystyle{XYZ}色空間（2\textdegree 視野），\mathdisplaystyle{LMS}色空間，Adobe\mathdisplaystyle{RGB}色空間，CIELUV色空間が登場しているが，本章で一度これらを整理する．
 		なお，2015年の複数のデータや色空間間座標変換の式は入手できなかった為，以下ではそれよりもやや古い物を掲載する．
 		\section{分光視感効率}
 			ヒトが感じる色の明るさ（分光視感効率，比視感度；luminous efficiency）はその波長によって異なる．
 			例えば，同じエネルギーでも緑色は明るく見え，紫外域，赤外域には明るさを感じない．
-			分光視感効率は波長の非負有界連続関数\mathdisplaystyle{V\colon\parentheses{0,\infty}\to\squarebrackets{0,1};\lambda\mapsto V\parentheses{\lambda}}で表される\footnote{適当な集合\mathdisplaystyle{S\in\squarebrackets{0,\infty}}に対して，積分%
+			分光視感効率は波長の非負有界連続関数\mathdisplaystyle{V\colon\parentheses{0,\infty}\to\squarebrackets{0,1};\lambda\mapsto V\parentheses{\lambda}}で表される\footnote{適当な集合\mathdisplaystyle{S\subseteq\squarebrackets{0,\infty}}に対して，積分%
 				\begin{equation*}
 					\int_S{V\parentheses{\lambda}}\,d\lambda
 				\end{equation*}
@@ -388,10 +388,10 @@
 				\easymatrix{R \\ G \\ B}=\int_0^\infty{a\parentheses{\lambda}\easymatrix{\bar{r}\parentheses{\lambda} \\ \bar{g}\parentheses{\lambda} \\ \bar{b}\parentheses{\lambda}}}\,d\lambda
 			\end{equation*}
 			で表せる．
-		\section{CIE1931\mathdisplaystyle{XYZ}表色系}
+		\section{CIE1931\mathdisplaystyle{XYZ}色空間}
 			\mathdisplaystyle{RGB}色空間は等色関数の性質から負の値も考える必要がある．
 			しかし，1930年前後は色の計算を手計算で行っていて，負の値が多くの計算間違いを引き起こした為，全てが非負となる別の色空間が求められるようになっていった．
-			そこで定義されたのがCIE1931\mathdisplaystyle{XYZ}表色系である\footnote{CIE2015\mathdisplaystyle{XYZ}はCIE1931\mathdisplaystyle{XYZ}をより新しくした物である．}．
+			そこで定義されたのがCIE1931\mathdisplaystyle{XYZ}色空間である\footnote{CIE2015\mathdisplaystyle{XYZ}はCIE1931\mathdisplaystyle{XYZ}をより新しくした物である．}．
 	\chapter{関連研究}
 		HuangらはBrattelらのアルゴリズムを基に，画像から1型2色覚者，2型2色覚者でも識別しやすい色の組み合わせを導出して色変換する計算手法を提案している\cite{Huang2007}．
 		大まかな考え方は「変換の自然さ」を維持しながら色差を保つ色変換を最適化で見つけることである．
@@ -404,7 +404,7 @@
 		本論文では，光源の設定という最小限の仮定からSVM＋Bayes最適化とCIELUV色空間上の色差の代数計算，解析計算のみで色を分類する為，一度分類作業が完了すれば使い回しが可能で，零から掲示物をデザインする時にも使える．
 
 		FuntとZhuは2型2色覚の色の見え方をBrattelらのアルゴリズムに依存しない形で計算する手法を検討している\cite{Funt2018}．
-		24 bit s\mathdisplaystyle{RGB}の画像をCIE1931\mathdisplaystyle{XYZ}表色系に座標変換し，Hunt--Pointer--Estévez（HPE）変換行列で\mathdisplaystyle{LMS}色空間に変換する．
+		24 bit s\mathdisplaystyle{RGB}の画像をCIE1931\mathdisplaystyle{XYZ}色空間に座標変換し，Hunt--Pointer--Estévez（HPE）変換行列で\mathdisplaystyle{LMS}色空間に変換する．
 		更に\mathdisplaystyle{M=0}でM錐体の応答を無くして逆変換でs\mathdisplaystyle{RGB}画像に戻す．
 		以上の変換前後の対を畳み込みニューラルネットワーク（convolutional neural network）の教師データにする．
 		複数の写真に適用した結果，変換前後で大きな変化が無く，赤色や緑色も残ってしまった．
@@ -461,10 +461,10 @@
 				dp-pB & S4550-R90B & 25.5495 & 68.4164 & 115.8239 & 28 & 24 & 21 \\
 				vv-pB & S3060-R90B & 48.3133 & 96.8561 & 157.3008 & 12 & 15 & 8 \\ \hline
 				合計 &  &  &  &  & 1948 & 1948 & 1107}{データセットの概要\zwspace 続き}{dataset2}
-			NCSはいずれも物体色である為，光源色であるAdobe\mathdisplaystyle{RGB}色空間への座標変換の前提として光源と\mathdisplaystyle{XYZ}表色系の仮定が要求される．
-			本データセットでは，光源にCIE標準光源D65（CIE standard illuminant D65）を，\mathdisplaystyle{XYZ}表色系にCIE1931\mathdisplaystyle{XYZ}表色系（2\textdegree 視野）\cite[pp.~28--30]{Yaguchi2017a}を採用している．
+			NCSはいずれも物体色である為，光源色であるAdobe\mathdisplaystyle{RGB}色空間への座標変換の前提として光源と\mathdisplaystyle{XYZ}色空間の仮定が要求される．
+			本データセットでは，光源にCIE標準光源D65（CIE standard illuminant D65）を，\mathdisplaystyle{XYZ}色空間にCIE1931\mathdisplaystyle{XYZ}色空間（2\textdegree 視野）\cite[pp.~28--30]{Yaguchi2017a}を採用している．
 			城戸らの研究（\cite[図1]{Kido2017}，\cite[図1]{Kido2018}）に倣って各代表色を黄青―明度平面に置くと図\Reference{fig:YB}のようになる\footnote{本来のクラス数は44であるが，y-Bkに属する色がNCSに無かったので，表\Reference{tab:dataset1}，表\Reference{tab:dataset2}ではそれを無視し，図\Reference{fig:YB}ではそれを\#000000で塗っている．}．
-			周囲の数字はMunsell表色系上の5Y-5PB平面における彩度（Munsell表色系ではchromaという），明度（lightness，Munsell表色系ではvalueという）に対応する．
+			周囲の数字はMunsell色空間上の5Y-5PB平面における彩度（Munsell色空間ではchromaという），明度（lightness，Munsell色空間ではvalueという）に対応する．
 			\figureinput{width=\linewidth}{D:/a/figs/YB.png}{黄青―明度平面}{YB}
 		\section{実験1}
 			\subsection{手続き}
@@ -523,7 +523,7 @@
 					\captiondot{左上：1型2色覚の混同行列，右上：2型2色覚の混同行列，左下：1型2色覚の混同行列の正解クラス別割合，右下：2型2色覚の混同行列の正解クラス別割合}\label{fig:confusion}
 				\end{figure}
 				下段で対角成分から左または右に4列離れた成分が仄明るく光っている様子が見られる．
-				これは，図\Reference{fig:YB}で明度が等しく彩度方向で隣接しているクラス同士の関係であり，Adobe\mathdisplaystyle{RGB}色空間とMunsell表色系という異なる空間ではあるものの，この関係にあるクラスが近くにあった為，誤分類が生じたと考えられる．
+				これは，図\Reference{fig:YB}で明度が等しく彩度方向で隣接しているクラス同士の関係であり，Adobe\mathdisplaystyle{RGB}色空間とMunsell色空間という異なる空間ではあるものの，この関係にあるクラスが近くにあった為，誤分類が生じたと考えられる．
 
 				訓練データでの正解率と混同行列を踏まえると，1型2色覚，2型2色覚のいずれもSVM＋Bayes最適化で十分学習できたと言えるであろう．
 		\section{実験2}
@@ -535,7 +535,7 @@
 				均等色空間はCIELUVやCIELABの他にCIEDE2000やCAM02-UCS等様々ある\cite{Yaguchi2017b}が，CIELUVは変換が比較的単純である為，計算速度が求められる際には役立つ色空間である．
 				一方で，CIELUVやCIELABは新しい均等色空間と比べて知覚の均一性が弱いという欠点がある\cite[p.~10]{Robertson1977}．
 
-				まず，表\Reference{tab:dataset1}，表\Reference{tab:dataset2}の各代表色を，CIE1931\mathdisplaystyle{XYZ}表色系\footnote{変換\mathdisplaystyle{\textrm{24bit Adobe}RGB\to\textrm{CIE1931}XYZ}はAdobe\textregistered のマニュアル\cite{Adobe2005}を参考にした．}，\mathdisplaystyle{LMS}色空間\footnote{CIE標準光源D65下でのHPE変換行列を使用した．}を経由して1型2色覚，2型2色覚の\mathdisplaystyle{LMS}に写し，再度CIE1931\mathdisplaystyle{XYZ}を経由してCIELUVに座標変換する．
+				まず，表\Reference{tab:dataset1}，表\Reference{tab:dataset2}の各代表色を，CIE1931\mathdisplaystyle{XYZ}色空間\footnote{変換\mathdisplaystyle{\textrm{24bit Adobe}RGB\to\textrm{CIE1931}XYZ}はAdobe\textregistered のマニュアル\cite{Adobe2005}を参考にした．}，\mathdisplaystyle{LMS}色空間\footnote{CIE標準光源D65下でのHPE変換行列を使用した．}を経由して1型2色覚，2型2色覚の\mathdisplaystyle{LMS}に写し，再度CIE1931\mathdisplaystyle{XYZ}を経由してCIELUVに座標変換する．
 				任意の2色\mathdisplaystyle{c_\alpha}，\mathdisplaystyle{c_\beta}間の色差\mathdisplaystyle{\greekDELTA E^{L^\ast u^\ast v^\ast}\parentheses{c_\alpha,c_\beta}}はCIELUV上のEuclid距離で
 				\begin{equation*}
 					\greekDELTA E^{L^\ast u^\ast v^\ast}\parentheses{c_\alpha,c_\beta}=\norm{c_\beta^{L^\ast u^\ast v^\ast}-c_\alpha^{L^\ast u^\ast v^\ast}}{2}
@@ -556,7 +556,7 @@
 					\end{tabular}
 					\captiondot{左：1型2色覚における代表色の距離行列，右：2型2色覚における代表色の距離行列}\label{fig:distmatrix}
 				\end{figure}
-				Munsell表色系（図\Reference{fig:YB}）で近い位置関係にあった対はCIELUV色空間上でも比較的近くにあることが分かる．
+				Munsell色空間（図\Reference{fig:YB}）で近い位置関係にあった対はCIELUV色空間上でも比較的近くにあることが分かる．
 
 				次に，各クラス\mathdisplaystyle{{\parentheses{C_i}}_{i=1}^{43}}について代表色を\mathdisplaystyle{{\hat{c}}_i\in C_i}とし，自分自身を除いて最も近い代表色\mathdisplaystyle{{\hat{c}}_{\tilde{j}\parentheses{i}}}との色差\mathdisplaystyle{\greekDELTA E_i^{L^\ast u^\ast v^\ast}}を距離行列から
 				\begin{align*}
