@@ -120,7 +120,7 @@
 \newcolumntype{C}{>{\centering\arraybackslash}X}
 \newcolumntype{L}{>{\raggedright\arraybackslash}X}
 \newcolumntype{R}{>{\raggedleft\arraybackslash}X}
-\allowdisplaybreaks[4]
+\allowdisplaybreaks[0]
 %
 \newcommand{\zwspace}{\hspace{1zw}\relax}
 \renewcommand{\lstlistingname}{プログラム}
@@ -197,7 +197,7 @@
 			ヒトは眼球を使って物を見る．
 
 			眼球の構造を図\Reference{fig:eyes}に示す．
-			\figureinput{width=9.5truecm}{D:/a/figs/eye2.png}{眼球の構造\protect\cite[p.~109]{Sotoyama1985}}{eyes}
+			\figureinput{width=9.5truecm}{D:/a/figs/eye2.png}{眼球の構造\protect\cite[図-1]{Sotoyama1985}}{eyes}
 			外界から入射する光は角膜（cornea）と前眼房（前房とも；anterior chamber）を通って水晶体（crystalline lens）に入り，そこで屈折する．
 			更に硝子体（vitreous body）を通って網膜（retina）で結像する\footnote{水晶体のピント調整機能の低下で結像位置が網膜の前後に移動する現象が近視，遠視，老眼である．}．
 			網膜にはL錐体（L cone），M錐体（M cone），S錐体（S cone），杆体（桿体とも；rod）の4種類の視細胞（photoreceptor）が分布している．
@@ -205,11 +205,13 @@
 			杆体は錐体と比べて光への感度が良く，暗所で機能する\cite{Hosoki2014}．
 			杆体は1種類のみである為に色の知覚には無関係であると言われるが，錐体が十分に機能できない暗さで色覚に影響を及ぼしているとする研究もある\cite{Takeshita2014}．
 
-			3種類の錐体の分光感度を波長ごとにプロットした物が図\Reference{fig:fundament}である．
+			3種類の錐体の分光感度を波長毎にプロットした物が図\Reference{fig:fundament}である．
 			横軸は光の波長，縦軸はその波長の光が目に入射した時に錐体がどれだけ応答するかを表していて，最大値が1になるように正規化されている．
 			これは直接の実験結果ではなく，後述する等色実験（color matching experiment）の結果を線型変換して得られるデータである．
 			国際照明委員会（Commission Internationale de l'Éclairage；CIE）が2015年に制定した，2\textdegree 視野のCIE2015\mathdisplaystyle{XYZ}色空間（CIE2015\mathdisplaystyle{XYZ} color space）
 			\figureinput{width=\linewidth}{D:/a/figs/ConeFundamental.png}{CIE2015\mathdisplaystyle{XYZ}色空間（2\textdegree 視野）から導出される正規化錐体分光感度}{fundament}
+			また，結果的にヒトが見る可視光のスペクトルは図\Reference{fig:spectrum}のようになる\footnote{Pythonライブラリ「Colour」を使用して描画した．}．
+			\figureinput{width=10truecm}{D:/a/figs/spectrum.png}{CIE2012\mathdisplaystyle{XYZ}色空間（2\textdegree 視野）から導出される可視光のスペクトル}{spectrum}
 		\section{色覚異常について}
 			世の中には，先天的なX染色体異常がトリガーとなる色盲者\cite{Okabe2002a}，色弱者\cite{Sunaga2017}や，加齢によって後天的に色の見え方が変化する人\cite{Kuriki2000}がいる．
 
@@ -221,32 +223,32 @@
 			加齢による色の見え方の変化は，核白内障（nuclear cataract）が原因の水晶体の黄変に伴い，光が錐体に届く前にスペクトルが歪められることによって起こる．
 			特に短波長の光が黄変した水晶体に吸収されやすい為，青紫や青緑等の青系統の色の識別が難しくなる他，液体，炎や電光掲示板が見え辛くなる\cite{Ishihara1998}．
 		\section{色覚シミュレーションについて}
-			情報伝達の手段の一つとして色を用いることはよくある（図\Reference{fig:redtext1}，図\Reference{fig:redtext2}等\footnote{図\Reference{fig:redtext1}，図\Reference{fig:redtext2}のシミュレータはAndroidアプリケーション「色のシミュレータ」を使用した．}）．
+			情報伝達の手段の一つとして色を用いることはよくある（図\Reference{fig:redtext1}，図\Reference{fig:redtext2}等\footnote{図\Reference{fig:redtext1}，図\Reference{fig:redtext2}のシミュレータはスマートフォンアプリケーション「色のシミュレータ」を使用した．}）．
 			マジョリティの3色覚者にとっては赤色が強調色や警告色として映るので，特に赤色はよく使用される．
 			\figureinput{width=7.5truecm}{D:/a/figs/S__50315266.jpg}{左上：本学内の掲示①（撮影日：2020年1月17日），右上：元画像の1型2色覚の見え方のシミュレーション，左下：元画像の2型2色覚の見え方のシミュレーション，右下：元画像の3型2色覚の見え方のシミュレーション}{redtext1}
 			\figureinput{width=7.5truecm}{D:/a/figs/S__50315270.jpg}{左上：本学内の掲示②（撮影日：2020年1月17日），右上：元画像の1型2色覚の見え方のシミュレーション，左下：元画像の2型2色覚の見え方のシミュレーション，右下：元画像の3型2色覚の見え方のシミュレーション}{redtext2}
-			また，災害の危険が迫っている際に個々人の情報収集は迅速に行われるべきであり，色情報を加えることで一目で分かるようになっている（図\Reference{fig:yahoo}\footnote{図\protect\Reference{fig:yahoo}のシミュレータはAndroidアプリケーション「Colorblind Pro」を使用した．}\cite{Yahoo2020}）．
+			また，災害の危険が迫っている際に個々人の情報収集は迅速に行われるべきであり，色情報を加えることで一目で分かるようになっている（図\Reference{fig:yahoo}\footnote{図\protect\Reference{fig:yahoo}のシミュレータは「色のシミュレータ」を使用した．}\cite{Yahoo2020}）．
 			\begin{figure}[tbp]
 				\centering
 				\begin{tabular}{c}
 					\begin{minipage}{0.5\linewidth}
 						\centering
-						\includegraphics[width=6.5truecm]{D:/a/figs/signal.png}
+						\includegraphics[width=5.5truecm]{D:/a/figs/S__53149698.png}
 					\end{minipage}
 					\begin{minipage}{0.5\linewidth}
 						\centering
-						\includegraphics[width=6.5truecm]{D:/a/figs/prot_imagej_100_signal.png}
+						\includegraphics[width=5.5truecm]{D:/a/figs/S__53149700.jpg}
 					\end{minipage} \\
 					\begin{minipage}{0.06\linewidth}
 						\vspace{10truemm}
 					\end{minipage} \\
 					\begin{minipage}{0.5\linewidth}
 						\centering
-						\includegraphics[width=6.5truecm]{D:/a/figs/deut_imagej_100_signal.png}
+						\includegraphics[width=5.5truecm]{D:/a/figs/S__53149701.jpg}
 					\end{minipage}
 					\begin{minipage}{0.5\linewidth}
 						\centering
-						\includegraphics[width=6.5truecm]{D:/a/figs/trit_imagej_100_signal.png}
+						\includegraphics[width=5.5truecm]{D:/a/figs/S__53149702.jpg}
 					\end{minipage}
 				\end{tabular}
 				\captiondot{左上：災害情報の危険度別の色，右上：元画像の1型2色覚の見え方のシミュレーション，左下：元画像の2型2色覚の見え方のシミュレーション，右下：元画像の3型2色覚の見え方のシミュレーション}\label{fig:yahoo}
@@ -262,32 +264,8 @@
 			色覚シミュレータは多数あるが，その多くはBrattelらが開発したアルゴリズム\cite{Brettel1997}をベースにしている．
 			Brattelらのアルゴリズムは，画像の\mathdisplaystyle{RGB}値を\mathdisplaystyle{LMS}色空間\footnote{3種類の錐体の応答値を3次元空間にプロットすることで構成される．}に座標変換してから，各色覚特性に合わせた適切な処理を行い，\mathdisplaystyle{RGB}色空間に逆変換する．
 			シミュレータを用いることで，ディスプレイに映し出された画像をリアルタイムに色変換させることが可能になり，マジョリティである3色覚者でも2色覚の見え方を擬似体験できるようになった．
-			\begin{figure}[tbp]
-				\centering
-				\begin{tabular}{c}
-					\begin{minipage}{0.5\linewidth}
-						\centering
-						\includegraphics[width=7.5truecm]{D:/a/figs/56.PNG}
-					\end{minipage}
-					\begin{minipage}{0.5\linewidth}
-						\centering
-						\includegraphics[width=7.5truecm]{D:/a/figs/prot_imagej_100_56.png}
-					\end{minipage} \\
-					\begin{minipage}{0.06\linewidth}
-						\vspace{10truemm}
-					\end{minipage} \\
-					\begin{minipage}{0.5\linewidth}
-						\centering
-						\includegraphics[width=7.5truecm]{D:/a/figs/deut_imagej_100_56.png}
-					\end{minipage}
-					\begin{minipage}{0.5\linewidth}
-						\centering
-						\includegraphics[width=7.5truecm]{D:/a/figs/trit_imagej_100_56.png}
-					\end{minipage}
-				\end{tabular}
-				\captiondot{左上：可視光のスペクトル画像（波長域：380 nm--780 nm），右上：元画像の1型2色覚の見え方のシミュレーション，左下：元画像の2型2色覚の見え方のシミュレーション，右下：元画像の3型2色覚の見え方のシミュレーション}\label{fig:spect}
-			\end{figure}
-			図\Reference{fig:spect}は可視光のスペクトル画像\footnote{分析・計測・測位用 アート開発 Labs\protect\cite{Artlabs2019}より引用．}とそれに1型2色覚，2型2色覚，3型2色覚のシミュレーションを実行した結果である\footnote{図\protect\Reference{fig:spect}のシミュレータはAndroidアプリケーション「Colorblind Pro」を使用した．}．
+			\figureinput{width=10truecm}{D:/a/figs/S__53141507.jpg}{上：可視光のスペクトル画像，中：元画像の1型2色覚の見え方のシミュレーション，下：元画像の2型2色覚の見え方のシミュレーション}{spect}
+			図\Reference{fig:spect}は可視光のスペクトル画像\footnote{図\protect\Reference{fig:spectrum}と同じ物．}とそれに1型2色覚，2型2色覚のシミュレーションを実行した結果である\footnote{図\protect\Reference{fig:spect}のシミュレータは「色のシミュレータ」を使用した．}．
 			
 			1型2色覚と2型2色覚の色の見え方は似ている．
 			この原因として，図\Reference{fig:fundament}から分かるように，L錐体とM錐体の錐体分光感度の分布は近くにあり，\mathdisplaystyle{LMS}色空間は\mathdisplaystyle{L}軸の基底ベクトルと\mathdisplaystyle{M}軸の基底ベクトルが近い向きを向いている斜交座標系になっている（図\Reference{fig:LMS}参照）．
@@ -319,7 +297,7 @@
 			近年，多くの色覚異常当事者の協力の下でカラーユニバーサルデザイン配色が考案される（\cite[pp.~1091--1099]{Okabe2002c}，\cite{cudo2018}等），どんな人でも適切に識別できる組み合わせのチョークが開発される\cite{Rikagaku2020}，JIS Z 9013（図記号―安全色及び安全標識―安全色の色度座標の範囲及び測定方法）が改正される\cite{Nakano2018}等の活動が行われてきた．
 			今後もこれらの活動が広がっていく中で，色覚シミュレータを上手く活用すれば当事者と意見を摺り合わせる回数を減らせる可能性が高くなり，デザイナー，当事者双方の負担を軽減でき得るからである．
 		\section{本論文の目的}
-			しかし，Brattelらのアルゴリズムを零から実装すると，前処理として可視光波長域上での数値積分を3回，3次正方行列の逆行列の計算を1回，3次元ベクトルの外積を2回実行し，更に各色毎に3次正方行列と3次元ベクトルの乗算を3回ずつ行わなければならず，24 bitの\mathdisplaystyle{RGB}色空間で\mathdisplaystyle{2^{24}}色\footnote{\mathdisplaystyle{2^{24}=16{,}777{,}216}．}全てに亘って変換を掛けながら当事者と見え方を摺り合わせていくのは大変な時間を要する．
+			しかし，Brattelらのアルゴリズムを実装すると，前処理として可視光波長域上での数値積分を3回，3次正方行列の逆行列の計算を1回，3次元ベクトルの外積を2回実行し，更に各色毎に3次正方行列と3次元ベクトルの乗算を3回ずつ行わなければならず，24 bitの\mathdisplaystyle{RGB}色空間で\mathdisplaystyle{2^{24}}色\footnote{\mathdisplaystyle{2^{24}=16{,}777{,}216}．}全てに亘って変換を掛けながら当事者と見え方を摺り合わせていくのは大変な時間を要する．
 			その上，実装や改良に際して色彩学や生理学に関する必要な知識が多く，専門外の人が取り組みにくくなっていると言わざるを得ない．
 
 			そこで本論文では，人口が比較的多く，色の見え方が類似している1型2色覚，2型2色覚に着目する．
@@ -330,22 +308,20 @@
 	\chapter{色空間の歴史と概要}
 		既に第\Reference{chap:intro}章でCIE2015\mathdisplaystyle{XYZ}色空間（2\textdegree 視野），\mathdisplaystyle{LMS}色空間，Adobe\mathdisplaystyle{RGB}色空間，CIELUV色空間が登場しているが，本章で一度これらを整理する．
 		なお，2015年の複数のデータや色空間間座標変換の式は入手できなかった為，以下ではそれよりもやや古い物を掲載する．
+		\section{色を数値化する}
+			電磁波は波長を持っているのみで色が付いている訳ではない．
+			色を知覚しているのは動物側の都合である．
+			また，同じ光であってもそれを見る動物，人，環境によって知覚される色は大きく変わる．
+			色を科学的に取り扱う為には色を数値化する必要が生じた．
 		\section{分光視感効率}
 			ヒトが感じる色の明るさ（分光視感効率，比視感度；luminous efficiency）はその波長によって異なる．
 			例えば，同じエネルギーでも緑色は明るく見え，紫外域，赤外域には明るさを感じない．
-			分光視感効率は波長の非負有界連続関数\mathdisplaystyle{V\colon\parentheses{0,\infty}\to\squarebrackets{0,1};\lambda\mapsto V\parentheses{\lambda}}で表される\footnote{適当な集合\mathdisplaystyle{S\subseteq\squarebrackets{0,\infty}}に対して，積分%
-				\begin{equation*}
-					\int_S{V\parentheses{\lambda}}\,d\lambda
-				\end{equation*}
-				は測度になる．Lebesgue積分論によると，任意の測度\mathdisplaystyle{\mu}と任意の一点集合\mathdisplaystyle{\braces{a}}について\mathdisplaystyle{\mu\parentheses{\braces{a}}=0}となる．更に，明らかに%
-				\begin{equation*}
-					\lim_{\lambda\to\positivevalue{0}}{V\parentheses{\lambda}}=\lim_{\lambda\to\infty}{V\parentheses{\lambda}}=0
-				\end{equation*}
-				である．この為，以下では始域としての\mathdisplaystyle{\parentheses{0,\infty}}と\mathdisplaystyle{\squarebrackets{0,\infty}}を明確に区別しない．}．
+			分光視感効率は波長の非負有界連続関数\mathdisplaystyle{V\colon\parentheses{0,\infty}\to\squarebrackets{0,1};\lambda\mapsto V\parentheses{\lambda}}で表される．
 			ここで，\mathdisplaystyle{\lambda}\,[nm]は光の波長である．
-			Judd--Vos修正分光視感効率\cite{Vos1978}を図\Reference{fig:le}に示す．
-			\figureinput{width=\linewidth}{D:/a/figs/le.png}{Judd--Vos修正分光視感効率\mathdisplaystyle{V\parentheses{\lambda}}}{le}
-			\mathdisplaystyle{V\parentheses{\lambda}}は\mathdisplaystyle{\lambda\sim{}}\SI{555}{nm}で極大かつ最大となる．
+			CIE1924分光視感効率\mathdisplaystyle{V\parentheses{\lambda}}（暗い青色の実線）とJudd--Vos修正分光視感効率\mathdisplaystyle{V_\textrm{M}\parentheses{\lambda}}\cite{Vos1978}（暗い黄色の破線）を図\Reference{fig:le}に示す．
+			\figureinput{width=\linewidth}{D:/a/figs/le.png}{CIE1924分光視感効率\mathdisplaystyle{V\parentheses{\lambda}}（暗い青色の実線）とJudd--Vos修正分光視感効率\mathdisplaystyle{V_\textrm{M}\parentheses{\lambda}}（暗い黄色の破線）}{le}
+			\mathdisplaystyle{V\parentheses{\lambda}}，\mathdisplaystyle{V_\textrm{M}\parentheses{\lambda}}は共に\mathdisplaystyle{\lambda\sim{}}\SI{555}{nm}で極大かつ最大となる．
+			修正によって\mathdisplaystyle{\lambda\sim{}}\SI{425}{nm}での感度がより高く見積もられることになった．
 
 			光の放射が波長\mathdisplaystyle{\lambda}について放射束（radiant flux）\mathdisplaystyle{\greekPHI_\textrm{r}\parentheses{\lambda}}\,[W]を持つならば，測光量（luminous quantity）\mathdisplaystyle{\greekPHI_\textrm{l}}\,[lm]は
 			\begin{equation*}
@@ -355,33 +331,33 @@
 			比例定数の683\,lm\,\mathdisplaystyle{\textrm{W}^{\negativevalue{1}}}は国際単位系（international system of units）で定められた発光効率（luminous efficiency）\mathdisplaystyle{K_\textrm{cd}}である．
 		\section{等色関数と\mathdisplaystyle{RGB}色空間}
 			マジョリティは3種類の錐体を持つので，波長の異なる3種類の単色光を上手く混ぜ合わせれば任意の光を再現できると言えそうである．
-			適当なスペクトルを持つ色を\mathdisplaystyle{\anglebrackets{C}}とし，この輝度（luminance）を\mathdisplaystyle{L_C}\,[cd\,\mathdisplaystyle{\textrm{m}^\negativevalue{2}}]とする．
-			原刺激（reference stimulus）\mathdisplaystyle{\anglebrackets{R}}，\mathdisplaystyle{\anglebrackets{G}}，\mathdisplaystyle{\anglebrackets{B}}によって\mathdisplaystyle{\anglebrackets{C}}と同じに見える色が再現できた時，条件等色（metamerism）といい，
+			適当なスペクトルを持つ色を\mathdisplaystyle{\Diracket{C}}とし，この輝度（luminance）を\mathdisplaystyle{L_C}\,[cd\,\mathdisplaystyle{\textrm{m}^\negativevalue{2}}]とする．
+			原刺激（reference stimulus）\mathdisplaystyle{\Diracket{R}}，\mathdisplaystyle{\Diracket{G}}，\mathdisplaystyle{\Diracket{B}}によって\mathdisplaystyle{\Diracket{C}}と同じに見える色が再現できた時，条件等色（metamerism）といい，
 			\begin{equation*}
-				L_C\anglebrackets{C}\equiv \easymatrix{L_R & L_G & L_B}\easymatrix{\anglebrackets{R} \\ \anglebrackets{G} \\ \anglebrackets{B}}
+				L_C\Diracket{C}\equiv \easymatrix{L_R & L_G & L_B}\easymatrix{\Diracket{R} \\ \Diracket{G} \\ \Diracket{B}}
 			\end{equation*}
 			と表す．
 			ここで得られる\mathdisplaystyle{\parentheses{L_R,L_G,L_B}}にある定数倍を施して得られる\mathdisplaystyle{\parentheses{R,G,B}}の空間を\mathdisplaystyle{RGB}色空間という．
-			また，このようにして，調べたい色\mathdisplaystyle{\anglebrackets{C}}のスペクトルを変えながら条件等色となる\mathdisplaystyle{L_R}，\mathdisplaystyle{L_G}，\mathdisplaystyle{L_B}を調べることを等色実験という．
-			更に，\mathdisplaystyle{\anglebrackets{C}=\anglebrackets{\lambda\,\textrm{[nm]}}}の時（則ち調べたい色が単色光の時）のこの\mathdisplaystyle{R}，\mathdisplaystyle{G}，\mathdisplaystyle{B}を等色関数（color maching function）といい，\mathdisplaystyle{\bar{r}\parentheses{\lambda}}，\mathdisplaystyle{\bar{g}\parentheses{\lambda}}，\mathdisplaystyle{\bar{b}\parentheses{\lambda}}と表す．
-			CIE1931での\mathdisplaystyle{\anglebrackets{R}}，\mathdisplaystyle{\anglebrackets{G}}，\mathdisplaystyle{\anglebrackets{B}}はそれぞれ\SI{700.0}{nm}，\SI{546.1}{nm}，\SI{435.8}{nm}で定められている．
-			Stiles--Burchの等色関数\mathdisplaystyle{\bar{r}\parentheses{\lambda}}，\mathdisplaystyle{\bar{g}\parentheses{\lambda}}，\mathdisplaystyle{\bar{b}\parentheses{\lambda}}（\cite{Stiles1955,Stiles1959}より）を図\Reference{fig:matching}に示す\footnote{Stiles--Burchの等色関数における\mathdisplaystyle{\anglebrackets{R}}，\mathdisplaystyle{\anglebrackets{G}}，\mathdisplaystyle{\anglebrackets{B}}はそれぞれ\SI{648.6}{nm}，\SI{526.4}{nm}，\SI{445.3}{nm}であり，CIE1931\mathdisplaystyle{XYZ}のそれとは異なる．}．
-			\figureinput{width=\linewidth}{D:/a/figs/RGBcmf.png}{Stiles--Burchの等色関数}{matching}
+			また，このようにして，調べたい色\mathdisplaystyle{\Diracket{C}}のスペクトルを変えながら条件等色となる\mathdisplaystyle{L_R}，\mathdisplaystyle{L_G}，\mathdisplaystyle{L_B}を調べることを等色実験という．
+			更に，\mathdisplaystyle{\Diracket{C}=\Diracket{\lambda\,\textrm{[nm]}}}の時（則ち調べたい色が単色光の時）のこの\mathdisplaystyle{R}，\mathdisplaystyle{G}，\mathdisplaystyle{B}を等色関数（color maching function）といい，\mathdisplaystyle{\bar{r}\parentheses{\lambda}}，\mathdisplaystyle{\bar{g}\parentheses{\lambda}}，\mathdisplaystyle{\bar{b}\parentheses{\lambda}}と表す．
+			CIE1931での\mathdisplaystyle{\Diracket{R}}，\mathdisplaystyle{\Diracket{G}}，\mathdisplaystyle{\Diracket{B}}はそれぞれ\SI{700.0}{nm}，\SI{546.1}{nm}，\SI{435.8}{nm}で定められている．
+			Stiles--Burchの等色関数\mathdisplaystyle{\bar{r}\parentheses{\lambda}}，\mathdisplaystyle{\bar{g}\parentheses{\lambda}}，\mathdisplaystyle{\bar{b}\parentheses{\lambda}}（\cite{Stiles1955,Stiles1959}より）を図\Reference{fig:matching}に示す\footnote{Stiles--Burchの等色関数における\mathdisplaystyle{\Diracket{R}}，\mathdisplaystyle{\Diracket{G}}，\mathdisplaystyle{\Diracket{B}}はそれぞれ\SI{648.6}{nm}，\SI{526.4}{nm}，\SI{445.3}{nm}であり，CIE1931\mathdisplaystyle{XYZ}のそれとは異なる．}．
+			\figureinput{width=\linewidth}{D:/a/figs/RGBcmf.png}{Stiles--Burchの等色関数（暗い色の線が2\textdegree 視野，明るい色の線が10\textdegree 視野）}{matching}
 			暗い色の線が2\textdegree 視野，明るい色の線が10\textdegree 視野である\footnote{2\textdegree 視野は中心窩付近に対応する視野であるが，黄斑（macula）が短波長の光を吸収しやすいことから，その影響を避ける為に10\textdegree 視野を用いることもある．}．
 			\mathdisplaystyle{\lambda\sim{}}\SI{500}{nm}で\mathdisplaystyle{\bar{r}\parentheses{\lambda}<0}となっているのは特筆すべき点である\footnote{\mathdisplaystyle{\bar{g}\parentheses{\lambda}}，\mathdisplaystyle{\bar{b}\parentheses{\lambda}}についてもこれらが負の値を取るような\mathdisplaystyle{\lambda}は存在する．}．
 			これは，例えば2\textdegree 視野で
 			\begin{equation*}
-				L_{500\,\textrm{nm}}\anglebrackets{500\,\textrm{nm}}\equiv \easymatrix{\negativevalue{0.29500} & 0.49060 & 0.10749}\easymatrix{\anglebrackets{648.6\,\textrm{nm}} \\ \anglebrackets{526.4\,\textrm{nm}} \\ \anglebrackets{445.3\,\textrm{nm}}}
+				L_{500\,\textrm{nm}}\Diracket{500\,\textrm{nm}}\equiv \easymatrix{\negativevalue{0.29500} & 0.49060 & 0.10749}\easymatrix{\Diracket{648.6\,\textrm{nm}} \\ \Diracket{526.4\,\textrm{nm}} \\ \Diracket{445.3\,\textrm{nm}}}
 			\end{equation*}
 			ということになっているのだが，実験の上では
 			\begin{equation*}
-				L_{500\,\textrm{nm}}\anglebrackets{500\,\textrm{nm}}+0.29500\anglebrackets{648.6\,\textrm{nm}}\equiv0.49060\anglebrackets{526.4\,\textrm{nm}}+0.10749\anglebrackets{445.3\,\textrm{nm}}
+				L_{500\,\textrm{nm}}\Diracket{500\,\textrm{nm}}+0.29500\Diracket{648.6\,\textrm{nm}}\equiv0.49060\Diracket{526.4\,\textrm{nm}}+0.10749\Diracket{445.3\,\textrm{nm}}
 			\end{equation*}
 			で条件等色になったことを意味している．
 
 			測光量と同様に，
 			\begin{equation*}
-				C\anglebrackets{C}=\int_0^\infty{a\parentheses{\lambda}\anglebrackets{\lambda\,\textrm{[nm]}}}\,d\lambda
+				C\Diracket{C}=\int_0^\infty{a\parentheses{\lambda}\Diracket{\lambda\,\textrm{[nm]}}}\,d\lambda
 			\end{equation*}
 			を持つならば，その光の色は
 			\begin{equation*}
@@ -391,11 +367,237 @@
 		\section{CIE1931\mathdisplaystyle{XYZ}色空間}
 			\mathdisplaystyle{RGB}色空間は等色関数の性質から負の値も考える必要がある．
 			しかし，1930年前後は色の計算を手計算で行っていて，負の値が多くの計算間違いを引き起こした為，全てが非負となる別の色空間が求められるようになっていった．
-			そこで定義されたのがCIE1931\mathdisplaystyle{XYZ}色空間である\footnote{CIE2015\mathdisplaystyle{XYZ}はCIE1931\mathdisplaystyle{XYZ}をより新しくした物である．}．
+			そこで定義されたのがCIE1931\mathdisplaystyle{XYZ}色空間である\footnote{CIE2012\mathdisplaystyle{XYZ}，CIE2015\mathdisplaystyle{XYZ}はCIE1931\mathdisplaystyle{XYZ}をより新しくした物である．}．
+			CIE1931\mathdisplaystyle{XYZ}は次の3つの要請を全て満足するように構築された．
+			\begin{align*}
+				&\textrm{①}\exists!\,{M_{RGB\to XYZ}\in\blackboardR^{3\times3}}\mathcomma\forall\lambda\in\parentheses{0,\infty}\mathcomma\easymatrix{X\parentheses{\lambda} \\ Y\parentheses{\lambda} \\ Z\parentheses{\lambda}}=M_{RGB\to XYZ}\easymatrix{\bar{r}\parentheses{\lambda} \\ \bar{g}\parentheses{\lambda} \\ \bar{b}\parentheses{\lambda}}\textrm{，}\\
+				&\textrm{②}\forall\lambda\in\parentheses{0,\infty}\mathcomma\easymatrix{X\parentheses{\lambda} \\ Y\parentheses{\lambda} \\ Z\parentheses{\lambda}}\geq\bm{0}\textrm{，}\\
+				&\textrm{③}\forall\lambda\in\parentheses{0,\infty}\mathcomma Y\parentheses{\lambda}=V\parentheses{\lambda}\quad\parentheses{V\parentheses{\lambda}\textrm{：CIE1924分光視感効率}}\textrm{．}
+			\end{align*}
+			①は変換のしやすさの為，②は先述の通り，③は\mathdisplaystyle{Y\parentheses{\lambda}}に意味を与えたかった為である．
+			結果的に変換行列\mathdisplaystyle{M}は
+			\begin{equation*}
+				M_{RGB\to XYZ}=\fraction{1}{0.17697}\easymatrix{0.49000 & 0.31000 & 0.20000 \\ 0.17697 & 0.81240 & 0.01063 \\ 0.00000 & 0.01000 & 0.99000}
+			\end{equation*}
+			で定められた．
+			CIE1931\mathdisplaystyle{XYZ}（2\textdegree 視野，暗い実線）とCIE2015\mathdisplaystyle{XYZ}（2\textdegree 視野，明るい破線）を図\Reference{fig:XYZ}に示す．
+			\figureinput{width=\linewidth}{D:/a/figs/XYZcmf.png}{CIE1931\mathdisplaystyle{XYZ}（2\textdegree 視野，暗い実線）とCIE2015\mathdisplaystyle{XYZ}（2\textdegree 視野，明るい破線）}{XYZ}
+			\mathdisplaystyle{X\parentheses{\lambda}}の極大点が2点存在する（\mathdisplaystyle{\lambda\sim{}}\SI{440}{nm}と\mathdisplaystyle{\lambda\sim{}}\SI{600}{nm}）ことが特徴である．
+			修正によって全体的に感度が向上した．
+		\section{\mathdisplaystyle{LMS}色空間}
+			1930年頃は錐体の感度を直接測定する方法が無く，錐体分光感度をCIE1931\mathdisplaystyle{XYZ}からの線型変換で推定した．
+			則ち，
+			\begin{equation*}
+				\exists!\,{M_{XYZ\to LMS}\in\blackboardR^{3\times3}}\mathcomma\forall\lambda\in\parentheses{0,\infty}\mathcomma\easymatrix{L\parentheses{\lambda} \\ M\parentheses{\lambda} \\ S\parentheses{\lambda}}=M_{XYZ\to LMS}\easymatrix{X\parentheses{\lambda} \\ Y\parentheses{\lambda} \\ Z\parentheses{\lambda}}
+			\end{equation*}
+			と仮定し，
+			\begin{equation*}
+				M_{RGB\to XYZ}\sim\easymatrix{0.21058 & 0.85509 & \negativevalue{0.03970} \\ \negativevalue{0.41707} & 1.17726 & 0.07863 \\ 0.00000 & 0.00000 & 0.51684}
+			\end{equation*}
+			を得た．
+			初めに掲載した図\Reference{fig:fundament}はCIE2015\mathdisplaystyle{XYZ}に対してこの線型変換を施した結果だったのである．
+		\section{\mathdisplaystyle{xy}色度図}
+			今まで述べてきたように色は3次元空間上で表現される．
+			しかし，実際にデザインする時に3次元だとイメージが難しいという課題がある．
+			そこで，\begin{align*}
+				&x=\fraction{X}{X+Y+Z}\textrm{，}\\
+				&y=\fraction{Y}{X+Y+Z}
+			\end{align*}
+			で2次元に落とす\mathdisplaystyle{xy}色度図（\mathdisplaystyle{xy} color diagram）が開発された（図\Reference{fig:xydiagram}）\footnote{図\Reference{fig:xydiagram}は「Colour」を使用して描画した．}．
+			\figureinput{width=\linewidth}{D:/a/figs/xy.png}{CIE1931\mathdisplaystyle{xy}色度図}{xydiagram}
+
+			\mathdisplaystyle{xy}色度図上の点\mathdisplaystyle{\parentheses{x,y}=\parentheses{1/3,1/3}}は無彩色であり，白色点（white point）と呼ばれ，そこから離れる程彩度が向上する．
+			外周は純色であり\footnote{如何なるディスプレイ，プリンタを用いても純色の再現は不可能であるので，想像する他に無い．}，上に凸な曲線部分（スペクトル軌跡；spectrum locus）は光のスペクトルに一致する．
+			下の線分を純紫軌跡（line of purples）といい，スペクトルには存在しない．
+			\mathdisplaystyle{xy}色度図上の任意の2色\mathdisplaystyle{\Diracket{c_\alpha}}，\mathdisplaystyle{\Diracket{c_\beta}}の混色はその間の線分上にあり
+			\begin{equation*}
+				\Diracket{c\parentheses{t}}^{xy}=\parentheses{1-t}\Diracket{c_\alpha}^{xy}+t\Diracket{c_\beta}^{xy}\quad\parentheses{t\in\parentheses{0,1}}
+			\end{equation*}
+			と表せ，任意の色\mathdisplaystyle{\Diracket{c}}の補色は白色点を中点とする線分の反対側
+			\begin{equation*}
+				\Diracket{c'}^{xy}=\negativevalue{\Diracket{c}^{xy}}+\fraction{2}{3}\easymatrix{1 \\ 1}
+			\end{equation*}
+			に位置する．
+			ヒトが見る色は全てこの領域で網羅されていることから，色を定量的に取り扱うことが容易になり，デザインにも大きく貢献することになった．
+			\subsection{混同色理論}
+				\mathdisplaystyle{xy}色度図を用いると，色盲者が識別できない混同色の理論の記述が可能になる．
+				1型2色覚，2型2色覚，3型2色覚にはそれぞれ混同色中心（copunctual point）と呼ばれる1点を\mathdisplaystyle{xy}色度図上に持ち，そこから放射状に混同色線（confusion line）が伸びている．
+				混同色中心の色度座標は表\Reference{tab:copunct}に示す値である\cite[Table 1]{Fomins2011}．
+				\tableinput{l|rr}{ & \(x\) & \(y\) \\ \hline
+					1型2色覚 & 0.7465 & 0.2535 \\
+					2型2色覚 & 1.4000 & \mathdisplaystyle{\negativevalue{0.4000}} \\
+					3型2色覚 & 0.1748 & 0.0000}{混同色中心の色度座標}{copunct}
+				実際に混同色線を描いてシミュレーションすると図\Reference{fig:xysimulate}が得られ，主張は概ね正しいことが分かる\footnote{図\Reference{fig:xysimulate}のシミュレータは「色のシミュレータ」を使用した．}．
+				\begin{figure}[tbp]
+					\centering
+					\begin{tabular}{c}
+						\begin{minipage}{0.5\linewidth}
+							\centering
+							\includegraphics[width=5.5truecm]{D:/a/figs/IMG_0137.JPG}
+						\end{minipage}
+						\begin{minipage}{0.5\linewidth}
+							\centering
+							\includegraphics[width=5.5truecm]{D:/a/figs/IMG_0138.JPG}
+						\end{minipage} \\
+						\begin{minipage}{0.06\linewidth}
+							\vspace{10truemm}
+						\end{minipage} \\
+						\begin{minipage}{0.5\linewidth}
+							\centering
+							\includegraphics[width=5.5truecm]{D:/a/figs/IMG_0140.JPG}
+						\end{minipage}
+						\begin{minipage}{0.5\linewidth}
+							\vspace{10truemm}
+						\end{minipage}
+					\end{tabular}
+					\captiondot{左上：1型2色覚の混同色線とシミュレーション，右上：2型2色覚の混同色線とシミュレーション，下：3型2色覚の混同色線とシミュレーション}\label{fig:xysimulate}
+				\end{figure}
+		\section{s\mathdisplaystyle{RGB}とAdobe\mathdisplaystyle{RGB}}
+			s\mathdisplaystyle{RGB}とAdobe\mathdisplaystyle{RGB}の出発点はCIE1931\mathdisplaystyle{XYZ}である．
+		\section{色差を数値化する}
+			色の数値化は\mathdisplaystyle{XYZ}色空間を筆頭に成功を収めた．
+			そこで次に検討されたこととして，任意の2色の間の色差を定量的に取り扱う方法が挙げられる．
+			CIE1931\mathdisplaystyle{XYZ}や\mathdisplaystyle{xy}色度図で評価されたが，これらでは知覚の均一性が弱く，色差計算には不向きであることがMacAdamによって明らかになった\cite{MacAdam1942}．
+			図\Reference{fig:MacAdam}は\mathdisplaystyle{xy}色度図にMacAdamの楕円を描き加えた物である\footnote{図\Reference{fig:MacAdam}は「Colour」を使用して描画した．}．
+			\figureinput{width=\linewidth}{D:/a/figs/MacAdam.png}{\mathdisplaystyle{xy}色度図とMacAdamの楕円}{MacAdam}
+			MacAdamの楕円は，ある色から少しずらしても色の変化を知覚できない領域を楕円で表し，相似比10で拡大した物で，もし色空間が完全に均等色空間であるならば，どの楕円も必ず真円になる．
+			\mathdisplaystyle{xy}色度図では特に\mathdisplaystyle{y}座標が大きい所で縦に引き伸ばされていることが分かる．
+			そこで，知覚の均一性を考慮した均等色空間が複数考案され，現在でも改良が続けられている．
+		\section{CIE1976\mathdisplaystyle{L^\ast a^\ast b^\ast}色空間}
+			現代でも比較的よく使われる均等色空間の一つがCIE1976\mathdisplaystyle{L^\ast a^\ast b^\ast}色空間（CIELAB色空間）である．
+			CIELABの導出には，\mathdisplaystyle{XYZ}のデータとは別に白色光源（white light source）を設定する必要がある．
+			CIEが既定する白色光源は複数あるが，タングステンランプを模したCIE標準光源A（CIE standard illuminant A）と晴天の昼間の太陽を模したCIE標準光源D65（CIE standard illuminant D65）が用いられることが多い．
+			波長毎の2つの標準光源の相対分光分布を図\Reference{fig:illum}に示す．
+			\figureinput{width=\linewidth}{D:/a/figs/illuminant.png}{標準光源の相対分光分布（水色の実線がD65，オレンジ色の破線がA）}{illum}
+			2つの色度座標は表\Reference{tab:illum}で定められている．
+			\tableinput{l|rr}{ & \(x_\textrm{n}\) & \(y_\textrm{n}\) \\ \hline
+				A & 0.4475 & 0.4074 \\
+				D65 & 0.3128 & 0.3291}{標準光源の色度座標}{illum}
+
+			CIELAB空間の座標\mathdisplaystyle{\parentheses{L^\ast,a^\ast,b^\ast}}は以下のようにして求められる．
+			まず，白色光源の\mathdisplaystyle{Y_\textrm{n}}が100になるように調整する（AとD65では表\Reference{tab:illum2}のようになる）．
+			\tableinput{l|rrr}{ & \(X_\textrm{n}\) & \(Y_\textrm{n}\) & \(Z_\textrm{n}\) \\ \hline
+				A & 109.8470 & 100.0000 & 35.6273 \\
+				D65 & 95.0461 & 100.0000 & 108.7865}{標準光源の\mathdisplaystyle{XYZ}}{illum2}
+			\mathdisplaystyle{Y}の最大値が100になるように注意しながら求めたい色の\mathdisplaystyle{XYZ}も調整する．
+			次に関数\mathdisplaystyle{f}を
+			\begin{equation*}
+				f\parentheses{\eta}=\begin{cases}
+					\fraction{1}{3}\parentheses{\fraction{29}{6}}^2\eta+\fraction{4}{29} & \parentheses{\eta\leq\parentheses{\fraction{6}{29}}^3} \\
+					\sqrt[3]{\eta} & \parentheses{\textit{otherwise}}
+				\end{cases}
+			\end{equation*}
+			で定義する．
+			この時，
+			\begin{align*}
+				&L^\ast\parentheses{X,Y,Z}=116f\parentheses{\fraction{Y}{Y_\textrm{n}}}-16\textrm{，}\\
+				&a^\ast\parentheses{X,Y,Z}=500\braces{f\parentheses{\fraction{X}{X_\textrm{n}}}-f\parentheses{\fraction{Y}{Y_\textrm{n}}}}\textrm{，}\\
+				&b^\ast\parentheses{X,Y,Z}=200\braces{f\parentheses{\fraction{Y}{Y_\textrm{n}}}-f\parentheses{\fraction{Z}{Z_\textrm{n}}}}
+			\end{align*}
+			となる．
+			任意の2色\mathdisplaystyle{\Diracket{c_\alpha}}，\mathdisplaystyle{\Diracket{c_\beta}}間の色差\mathdisplaystyle{\greekDELTA E^{L^\ast a^\ast b^\ast}\parentheses{\Diracket{c_\alpha},\Diracket{c_\beta}}}はCIELAB上のEuclid距離で
+			\begin{equation}
+				\greekDELTA E^{L^\ast a^\ast b^\ast}\parentheses{\Diracket{c_\alpha},\Diracket{c_\beta}}=\norm{\Diracket{c_\beta}^{L^\ast a^\ast b^\ast}-\Diracket{c_\alpha}^{L^\ast a^\ast b^\ast}}{2}\label{eq:LAB}
+			\end{equation}
+			で表される．
+
+			CIELABは上半球のようになっている（図\Reference{fig:LAB}参照）．
+			\begin{figure}[tbp]
+				\centering
+				\begin{tabular}{c}
+					\begin{minipage}{0.5\linewidth}
+						\centering
+						\includegraphics[width=7.5truecm]{D:/a/figs/CIELAB_color_space_front_view.png}
+					\end{minipage}
+					\begin{minipage}{0.5\linewidth}
+						\centering
+						\includegraphics[width=7.5truecm]{D:/a/figs/CIELAB_color_space_top_view.png}
+					\end{minipage}
+				\end{tabular}
+				\captiondot{左：CIELABを\mathdisplaystyle{b^\ast}軸負の方向から正の方向を見た様子，右：CIELABを\mathdisplaystyle{L^\ast}軸正の方向から負の方向を見た様子．Wikipediaより引用}\label{fig:LAB}
+			\end{figure}
+			\mathdisplaystyle{L^\ast}が増えると明るくなり，\mathdisplaystyle{a^\ast}が増えると赤みが増し，\mathdisplaystyle{b^\ast}が増えると黄みが増す．
+			CIELABの色域はヒトが知覚できる色域よりも広く，仮想的な色を多く持っている．
+
+			CIELABはそれ以降の知覚の均一性改善の為に開発される様々な均等色空間の基礎になっている．
+		\section{CIELUV色空間}
+			CIELABと同時に開発されたのがCIELUVである．
+			均等色空間CIE1960UCSの改良版として考案された．
+
+			導出法は\mathdisplaystyle{XYZ}の調整まではCIELABと全く同じである．
+			そこから
+			\begin{equation*}
+				L^\ast\parentheses{X,Y,Z}=\begin{cases}
+					\parentheses{\fraction{29}{3}}^3\fraction{Y}{Y_\textrm{n}} & \parentheses{\fraction{Y}{Y_\textrm{n}}\leq\parentheses{\fraction{6}{29}}^3} \\
+					116\parentheses{\fraction{Y}{Y_\textrm{n}}}^3-16 & \parentheses{\textit{otherwise}}
+				\end{cases}
+			\end{equation*}
+			で\mathdisplaystyle{L^\ast}を求める．
+			次に\mathdisplaystyle{u'}，\mathdisplaystyle{v'}を
+			\begin{align*}
+				&u'\parentheses{X,Y,Z}=\fraction{4X}{X+15Y+3Z}\\
+				&v'\parentheses{X,Y,Z}=\fraction{9Y}{X+15Y+3Z}
+			\end{align*}
+			で定め，\mathdisplaystyle{u^\ast}，\mathdisplaystyle{v^\ast}を
+			\begin{align*}
+				&u^\ast\parentheses{X,Y,Z}=13L^\ast\parentheses{u'-u'_\textrm{n}}\\
+				&v^\ast\parentheses{X,Y,Z}=13L^\ast\parentheses{v'-v'_\textrm{n}}
+			\end{align*}
+			とする．
+			色差\mathdisplaystyle{\greekDELTA E^{L^\ast u^\ast v^\ast}\parentheses{\Diracket{c_\alpha},\Diracket{c_\beta}}}は式\Equationreference{eq:LAB}と同様に
+			\begin{equation}
+				\greekDELTA E^{L^\ast u^\ast v^\ast}\parentheses{\Diracket{c_\alpha},\Diracket{c_\beta}}=\norm{\Diracket{c_\beta}^{L^\ast u^\ast v^\ast}-\Diracket{c_\alpha}^{L^\ast u^\ast v^\ast}}{2}\label{eq:LUV}
+			\end{equation}
+			で表される．
+
+			\mathdisplaystyle{u'v'}平面とMacAdamの楕円を図\Reference{fig:luvMacAdam}に示す\footnote{図\Reference{fig:luvMacAdam}は「Colour」を使用して描画した．}．
+			\figureinput{width=\linewidth}{D:/a/figs/LuvMacAdam.png}{\mathdisplaystyle{u'v'}平面とMacAdamの楕円}{luvMacAdam}
+			図\Reference{fig:MacAdam}と比べて知覚の均一性が改善していることが分かる．
+			本論文で使用する均等色空間はCIELUVである．
+		\section{物体色ベースの色空間}
+			ここまで光源色ベースの色空間を議論してきた．
+			一方で，物体色ベースの色空間を考えることも多い．
+			発光しない物体は外部の光を一部反射することでその物体に色があるように見える．
+			従って，物体色を光源色と同様に取り扱う為には白色光源を置いて測色する必要がある．
+		\section{Munsell色空間}
+			物体色ベースの色空間でメジャーな物としてMunsell色空間がある\footnote{一般的にはMunsell表色系（Munsell color system）という．}．
+			Munsell色空間は色相（hue），明度（lightness，Munsell色空間ではvalueという），彩度（saturation，Munsell色空間ではchromaという）の3つで表す．
+			彩度を動径座標，色相を角度座標とする円柱座標系と見做すとMunsell色空間は図\Reference{fig:Munsell}のようになる．
+			\figureinput{width=5truecm}{D:/a/figs/munsell3.png}{Munsell色空間のイメージ\protect\cite{Fukue2010}}{Munsell}
+			彩度が最大となる明度が色相毎に異なっていて，横から見ると歪な形状になっている．
+			また，Munsell色空間はグラデーションにならず，任意の領域はある色で塗りつぶされている．
+			10RPと10G，5Yと5PB等が互いに色相の角度が\mathdisplaystyle{\pi}だけが異なる色の関係になっている．
+			それぞれ概ね，赤色と緑色，黄色と青色であり，これら4色が色相を4分割している．
+			この考え方はHeringの反対色説と呼ばれる．
+			\mathdisplaystyle{XYZ}等との座標変換は定義されていない．
+
+			例えば，「国旗及び国歌に関する法律」（1999）によると日章旗の日章部分は紅色であるが，これをJIS慣用色名と解釈すると，日章部分はMunsell色空間の表記で3R 4/14となる．
+			3Rは色相，4は明度，14は彩度である．
+		\section{NCS}
+			本論文でも用いているNCSについて記述する．
+			NCSはHeringの反対色説を採用しつつ赤色と緑色，黄色と青色，黒色と白色を基本の色とし，クロマチックス（色の純度のような概念），黒色，白色の和が100になるように混色される．
+			NCSも円柱座標系になっている（図\Reference{fig:NCS}参照）．
+			\begin{figure}[tbp]
+				\centering
+				\begin{tabular}{c}
+					\begin{minipage}{\linewidth}
+						\centering
+						\includegraphics[width=5.5truecm]{D:/a/figs/img_page5_03.jpg}
+					\end{minipage} \\
+					\begin{minipage}{0.06\linewidth}
+						\vspace{10truemm}
+					\end{minipage} \\
+					\begin{minipage}{\linewidth}
+						\centering
+						\includegraphics[width=5.5truecm]{D:/a/figs/img_page5_06.jpg}
+					\end{minipage}
+				\end{tabular}
+				\captiondot{上：NCSの色相環，下：NCSの断面（R部分のみ）．DICカラーデザイン\protect\cite{DIC2015}より引用}\label{fig:NCS}
+			\end{figure}
 	\chapter{関連研究}
 		HuangらはBrattelらのアルゴリズムを基に，画像から1型2色覚者，2型2色覚者でも識別しやすい色の組み合わせを導出して色変換する計算手法を提案している\cite{Huang2007}．
 		大まかな考え方は「変換の自然さ」を維持しながら色差を保つ色変換を最適化で見つけることである．
-		「変換の自然さ」を維持する為に，（１）変換前後で輝度を変えない，（２）変換前で同じ色相（hue）を持つ2色は変換後も同じ色相を持つ，（３）変換前で同じ彩度（saturation）を持つ2色は変換後も同じ彩度を持つように，CIE1976\mathdisplaystyle{L^\ast a^\ast b^\ast}色空間（CIELAB色空間）上の\mathdisplaystyle{a^\ast b^\ast}平面を回転する．
+		「変換の自然さ」を維持する為に，（１）変換前後で輝度を変えない，（２）変換前で同じ色相を持つ2色は変換後も同じ色相を持つ，（３）変換前で同じ彩度を持つ2色は変換後も同じ彩度を持つように，CIELAB色空間上の\mathdisplaystyle{a^\ast b^\ast}平面を回転する．
 		その回転角は，変換前の色差と合成変換（\mathdisplaystyle{\textrm{Brattel}\circ\textrm{Huang}}）後の色差の差の平方和と変換前後での色差の平方和の非負定数倍を足し，これを誤差関数として最小化することで導出する．
 		赤色の花や草木が写った写真に対して手法を適用した結果，変換前を2色覚者が見たら全体的にくすんだ黄色に見えていたが，変換後は花がマゼンタ色に変化し，2色覚者には青紫色に見えるようになり，花と草木を識別できるようになった．
 		当研究は写真や既成のポスター等の掲示物について元々の印象をあまり損なわずに1型2色覚，2型2色覚への対応が為されるようにリデザインする際には有効であると考えられ，カラーユニバーサルデザインを推進する上で役立つと言える．
@@ -462,9 +664,9 @@
 				vv-pB & S3060-R90B & 48.3133 & 96.8561 & 157.3008 & 12 & 15 & 8 \\ \hline
 				合計 &  &  &  &  & 1948 & 1948 & 1107}{データセットの概要\zwspace 続き}{dataset2}
 			NCSはいずれも物体色である為，光源色であるAdobe\mathdisplaystyle{RGB}色空間への座標変換の前提として光源と\mathdisplaystyle{XYZ}色空間の仮定が要求される．
-			本データセットでは，光源にCIE標準光源D65（CIE standard illuminant D65）を，\mathdisplaystyle{XYZ}色空間にCIE1931\mathdisplaystyle{XYZ}色空間（2\textdegree 視野）\cite[pp.~28--30]{Yaguchi2017a}を採用している．
+			本データセットでは，白色光源にCIE標準光源D65を，\mathdisplaystyle{XYZ}色空間にCIE1931\mathdisplaystyle{XYZ}色空間（2\textdegree 視野）\cite[pp.~28--30]{Yaguchi2017a}を採用している．
 			城戸らの研究（\cite[図1]{Kido2017}，\cite[図1]{Kido2018}）に倣って各代表色を黄青―明度平面に置くと図\Reference{fig:YB}のようになる\footnote{本来のクラス数は44であるが，y-Bkに属する色がNCSに無かったので，表\Reference{tab:dataset1}，表\Reference{tab:dataset2}ではそれを無視し，図\Reference{fig:YB}ではそれを\#000000で塗っている．}．
-			周囲の数字はMunsell色空間上の5Y-5PB平面における彩度（Munsell色空間ではchromaという），明度（lightness，Munsell色空間ではvalueという）に対応する．
+			周囲の数字はMunsell色空間上の5Y-5PB平面における彩度，明度に対応する．
 			\figureinput{width=\linewidth}{D:/a/figs/YB.png}{黄青―明度平面}{YB}
 		\section{実験1}
 			\subsection{手続き}
@@ -536,9 +738,9 @@
 				一方で，CIELUVやCIELABは新しい均等色空間と比べて知覚の均一性が弱いという欠点がある\cite[p.~10]{Robertson1977}．
 
 				まず，表\Reference{tab:dataset1}，表\Reference{tab:dataset2}の各代表色を，CIE1931\mathdisplaystyle{XYZ}色空間\footnote{変換\mathdisplaystyle{\textrm{24bit Adobe}RGB\to\textrm{CIE1931}XYZ}はAdobe\textregistered のマニュアル\cite{Adobe2005}を参考にした．}，\mathdisplaystyle{LMS}色空間\footnote{CIE標準光源D65下でのHPE変換行列を使用した．}を経由して1型2色覚，2型2色覚の\mathdisplaystyle{LMS}に写し，再度CIE1931\mathdisplaystyle{XYZ}を経由してCIELUVに座標変換する．
-				任意の2色\mathdisplaystyle{c_\alpha}，\mathdisplaystyle{c_\beta}間の色差\mathdisplaystyle{\greekDELTA E^{L^\ast u^\ast v^\ast}\parentheses{c_\alpha,c_\beta}}はCIELUV上のEuclid距離で
+				任意の2色\mathdisplaystyle{\Diracket{c_\alpha}}，\mathdisplaystyle{\Diracket{c_\beta}}間の色差\mathdisplaystyle{\greekDELTA E^{L^\ast u^\ast v^\ast}\parentheses{\Diracket{c_\alpha},\Diracket{c_\beta}}}はCIELUV上のEuclid距離で
 				\begin{equation*}
-					\greekDELTA E^{L^\ast u^\ast v^\ast}\parentheses{c_\alpha,c_\beta}=\norm{c_\beta^{L^\ast u^\ast v^\ast}-c_\alpha^{L^\ast u^\ast v^\ast}}{2}
+					\greekDELTA E^{L^\ast u^\ast v^\ast}\parentheses{\Diracket{c_\alpha},\Diracket{c_\beta}}=\norm{\Diracket{c_\beta}^{L^\ast u^\ast v^\ast}-\Diracket{c_\alpha}^{L^\ast u^\ast v^\ast}}{2}
 				\end{equation*}
 				と表現できる．
 				これを用いて，43色における距離行列を計算すると図\Reference{fig:distmatrix}を得る．
