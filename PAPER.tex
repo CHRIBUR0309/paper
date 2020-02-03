@@ -336,7 +336,7 @@
 			\begin{equation*}
 				L_C\Diracket{C}\equiv \easymatrix{L_R & L_G & L_B}\easymatrix{\Diracket{R} \\ \Diracket{G} \\ \Diracket{B}}
 			\end{equation*}
-			と表す．
+			と表す\footnote{色のベクトル表示は\mathdisplaystyle{\Diracket{C}}の他に\mathdisplaystyle{\boldC}，\mathdisplaystyle{\squarebrackets{C}}，\mathdisplaystyle{\anglebrackets{C}}等の書き方がある．}．
 			ここで得られる\mathdisplaystyle{\parentheses{L_R,L_G,L_B}}にある定数倍を施して得られる\mathdisplaystyle{\parentheses{R,G,B}}の空間を\mathdisplaystyle{RGB}色空間という．
 			また，このようにして，調べたい色\mathdisplaystyle{\Diracket{C}}のスペクトルを変えながら条件等色となる\mathdisplaystyle{L_R}，\mathdisplaystyle{L_G}，\mathdisplaystyle{L_B}を調べることを等色実験という．
 			更に，\mathdisplaystyle{\Diracket{C}=\Diracket{\lambda\,\textrm{[nm]}}}の時（則ち調べたい色が単色光の時）のこの\mathdisplaystyle{R}，\mathdisplaystyle{G}，\mathdisplaystyle{B}を等色関数（color maching function）といい，\mathdisplaystyle{\bar{r}\parentheses{\lambda}}，\mathdisplaystyle{\bar{g}\parentheses{\lambda}}，\mathdisplaystyle{\bar{b}\parentheses{\lambda}}と表す．
@@ -357,7 +357,7 @@
 
 			測光量と同様に，
 			\begin{equation*}
-				C\Diracket{C}=\int_0^\infty{a\parentheses{\lambda}\Diracket{\lambda\,\textrm{[nm]}}}\,d\lambda
+				L_C\Diracket{C}=\int_0^\infty{a\parentheses{\lambda}\Diracket{\lambda\,\textrm{[nm]}}}\,d\lambda
 			\end{equation*}
 			を持つならば，その光の色は
 			\begin{equation*}
@@ -421,7 +421,7 @@
 			ヒトが見る色は全てこの領域で網羅されていることから，色を定量的に取り扱うことが容易になり，デザインにも大きく貢献することになった．
 			\subsection{混同色理論}
 				\mathdisplaystyle{xy}色度図を用いると，色盲者が識別できない混同色の理論の記述が可能になる．
-				1型2色覚，2型2色覚，3型2色覚にはそれぞれ混同色中心（copunctual point）と呼ばれる1点を\mathdisplaystyle{xy}色度図上に持ち，そこから放射状に混同色線（confusion line）が伸びている．
+				1型2色覚，2型2色覚，3型2色覚はそれぞれ混同色中心（copunctual point）と呼ばれる1点を\mathdisplaystyle{xy}色度図上に持ち，そこから放射状に混同色線（confusion line）が伸びている．
 				混同色中心の色度座標は表\Reference{tab:copunct}に示す値である\cite[Table 1]{Fomins2011}．
 				\tableinput{l|rr}{ & \(x\) & \(y\) \\ \hline
 					1型2色覚 & 0.7465 & 0.2535 \\
@@ -452,8 +452,12 @@
 					\end{tabular}
 					\captiondot{左上：1型2色覚の混同色線とシミュレーション，右上：2型2色覚の混同色線とシミュレーション，下：3型2色覚の混同色線とシミュレーション}\label{fig:xysimulate}
 				\end{figure}
+
+				Brattelらのアルゴリズムの理論的な根拠はこの混同色理論にある．
 		\section{s\mathdisplaystyle{RGB}とAdobe\mathdisplaystyle{RGB}}
 			s\mathdisplaystyle{RGB}とAdobe\mathdisplaystyle{RGB}の出発点はCIE1931\mathdisplaystyle{XYZ}である．
+			\mathdisplaystyle{XYZ}から線型変換した後に非線型な写像を施し，\mathdisplaystyle{\parentheses{\blackboardZ\cap\squarebrackets{0,255}}^3}に乗るように丸める．
+			s\mathdisplaystyle{RGB}はデジタル画像の色域で標準的な色空間であり，Adobe\mathdisplaystyle{RGB}はs\mathdisplaystyle{RGB}と比べて緑色の色域が広い．
 		\section{色差を数値化する}
 			色の数値化は\mathdisplaystyle{XYZ}色空間を筆頭に成功を収めた．
 			そこで次に検討されたこととして，任意の2色の間の色差を定量的に取り扱う方法が挙げられる．
@@ -466,7 +470,7 @@
 		\section{CIE1976\mathdisplaystyle{L^\ast a^\ast b^\ast}色空間}
 			現代でも比較的よく使われる均等色空間の一つがCIE1976\mathdisplaystyle{L^\ast a^\ast b^\ast}色空間（CIELAB色空間）である．
 			CIELABの導出には，\mathdisplaystyle{XYZ}のデータとは別に白色光源（white light source）を設定する必要がある．
-			CIEが既定する白色光源は複数あるが，タングステンランプを模したCIE標準光源A（CIE standard illuminant A）と晴天の昼間の太陽を模したCIE標準光源D65（CIE standard illuminant D65）が用いられることが多い．
+			CIEが規定する白色光源は複数あるが，タングステンランプを模したCIE標準光源A（CIE standard illuminant A）と晴天の昼間の日光を模したCIE標準光源D65（CIE standard illuminant D65）が用いられることが多い．
 			波長毎の2つの標準光源の相対分光分布を図\Reference{fig:illum}に示す．
 			\figureinput{width=\linewidth}{D:/a/figs/illuminant.png}{標準光源の相対分光分布（水色の実線がD65，オレンジ色の破線がA）}{illum}
 			2つの色度座標は表\Reference{tab:illum}で定められている．
@@ -594,6 +598,8 @@
 				\end{tabular}
 				\captiondot{上：NCSの色相環，下：NCSの断面（R部分のみ）．DICカラーデザイン\protect\cite{DIC2015}より引用}\label{fig:NCS}
 			\end{figure}
+			例えばNCSでの色名がS3060-R90Bであるというのは，黒色が30\%，クロマチックスが60\%，白色が10\%であり，クロマチックスの部分の色の内訳は赤色が10\%，青色が90\%ということを意味する．
+			クロマチックスが0\%の時は無彩色であり，Sxx00-Nのようになる．
 	\chapter{関連研究}
 		HuangらはBrattelらのアルゴリズムを基に，画像から1型2色覚者，2型2色覚者でも識別しやすい色の組み合わせを導出して色変換する計算手法を提案している\cite{Huang2007}．
 		大まかな考え方は「変換の自然さ」を維持しながら色差を保つ色変換を最適化で見つけることである．
@@ -663,11 +669,11 @@
 				dp-pB & S4550-R90B & 25.5495 & 68.4164 & 115.8239 & 28 & 24 & 21 \\
 				vv-pB & S3060-R90B & 48.3133 & 96.8561 & 157.3008 & 12 & 15 & 8 \\ \hline
 				合計 &  &  &  &  & 1948 & 1948 & 1107}{データセットの概要\zwspace 続き}{dataset2}
-			NCSはいずれも物体色である為，光源色であるAdobe\mathdisplaystyle{RGB}色空間への座標変換の前提として光源と\mathdisplaystyle{XYZ}色空間の仮定が要求される．
+			NCSはいずれも物体色である為，光源色であるAdobe\mathdisplaystyle{RGB}色空間への座標変換の前提として白色光源と\mathdisplaystyle{XYZ}色空間の仮定が要求される．
 			本データセットでは，白色光源にCIE標準光源D65を，\mathdisplaystyle{XYZ}色空間にCIE1931\mathdisplaystyle{XYZ}色空間（2\textdegree 視野）\cite[pp.~28--30]{Yaguchi2017a}を採用している．
-			城戸らの研究（\cite[図1]{Kido2017}，\cite[図1]{Kido2018}）に倣って各代表色を黄青―明度平面に置くと図\Reference{fig:YB}のようになる\footnote{本来のクラス数は44であるが，y-Bkに属する色がNCSに無かったので，表\Reference{tab:dataset1}，表\Reference{tab:dataset2}ではそれを無視し，図\Reference{fig:YB}ではそれを\#000000で塗っている．}．
-			周囲の数字はMunsell色空間上の5Y-5PB平面における彩度，明度に対応する．
-			\figureinput{width=\linewidth}{D:/a/figs/YB.png}{黄青―明度平面}{YB}
+			城戸らの研究（\cite[図1]{Kido2017}，\cite[図1]{Kido2018}）に倣って各代表色をMunsell色空間上の5Y-5PB平面\footnote{Munsell色空間を5Y-5PB平面が断面になるように明度軸に沿って切った時の，その断面図．}に置くと図\Reference{fig:YB}のようになる\footnote{本来のクラス数は44であるが，y-Bkに属する色がNCSに無かったので，表\Reference{tab:dataset1}，表\Reference{tab:dataset2}ではそれを無視し，図\Reference{fig:YB}ではそれを\#000000で塗っている．}．
+			周囲の数字はこの平面における彩度，明度に対応する．
+			\figureinput{width=\linewidth}{D:/a/figs/YB.png}{NCS代表色を5Y-5PB平面にプロットして塗りつぶした結果}{YB}
 		\section{実験1}
 			\subsection{手続き}
 				実験1では，本データセットを1型2色覚，2型2色覚の色の見え方クラスにそれぞれ分類する分類器を作成する．
@@ -760,12 +766,12 @@
 				\end{figure}
 				Munsell色空間（図\Reference{fig:YB}）で近い位置関係にあった対はCIELUV色空間上でも比較的近くにあることが分かる．
 
-				次に，各クラス\mathdisplaystyle{{\parentheses{C_i}}_{i=1}^{43}}について代表色を\mathdisplaystyle{{\hat{c}}_i\in C_i}とし，自分自身を除いて最も近い代表色\mathdisplaystyle{{\hat{c}}_{\tilde{j}\parentheses{i}}}との色差\mathdisplaystyle{\greekDELTA E_i^{L^\ast u^\ast v^\ast}}を距離行列から
+				次に，各クラス\mathdisplaystyle{{\parentheses{C_i}}_{i=1}^{43}}について代表色を\mathdisplaystyle{\Diracket{\hat{c}_i}\in C_i}とし，自分自身を除いて最も近い代表色\mathdisplaystyle{{\hat{c}}_{\tilde{j}\parentheses{i}}}との色差\mathdisplaystyle{\greekDELTA E_i^{L^\ast u^\ast v^\ast}}を距離行列から
 				\begin{align*}
-					&\tilde{j}\parentheses{i}\in\operatorname*{arg\,min}_{j\neq i}{\greekDELTA E^{L^\ast u^\ast v^\ast}\parentheses{{\hat{c}}_i,{\hat{c}}_j}}\textrm{，}\\
-					&\greekDELTA E_i=\greekDELTA E^{L^\ast u^\ast v^\ast}\parentheses{{\hat{c}}_i,{\hat{c}}_{\tilde{j}\parentheses{i}}}
+					&\tilde{j}\parentheses{i}\in\operatorname*{arg\,min}_{j\neq i}{\greekDELTA E^{L^\ast u^\ast v^\ast}\parentheses{\Diracket{\hat{c}_i},\Diracket{\hat{c}_j}}}\textrm{，}\\
+					&\greekDELTA E_i=\greekDELTA E^{L^\ast u^\ast v^\ast}\parentheses{\Diracket{\hat{c}_i},{\hat{c}}_{\tilde{j}\parentheses{i}}}
 				\end{align*}
-				で求め，代表色\mathdisplaystyle{{\hat{c}}_i^{L^\ast u^\ast v^\ast}}を中心とする半径が\mathdisplaystyle{\greekDELTA E_i}である開球\mathdisplaystyle{B\parentheses{{\hat{c}}_i^{L^\ast u^\ast v^\ast},\greekDELTA E_i}}と，半径がその半分である開球\mathdisplaystyle{B\parentheses{{\hat{c}}_i^{L^\ast u^\ast v^\ast},\greekDELTA E_i/2}}を考える．
+				で求め，代表色\mathdisplaystyle{\Diracket{\hat{c}_i}^{L^\ast u^\ast v^\ast}}を中心とする半径が\mathdisplaystyle{\greekDELTA E_i}である開球\mathdisplaystyle{B\parentheses{\Diracket{\hat{c}_i}^{L^\ast u^\ast v^\ast},\greekDELTA E_i}}と，半径がその半分である開球\mathdisplaystyle{B\parentheses{\Diracket{\hat{c}_i}^{L^\ast u^\ast v^\ast},\greekDELTA E_i/2}}を考える．
 				以下，便宜的に前者を弱採択域，後者を強採択域と呼ぶ（図\Reference{fig:adoption}参照）．
 				\begin{figure}[tbp]
 					\centering
@@ -785,13 +791,13 @@
 								\fill (A) circle [radius=2pt];
 								\fill (B) circle [radius=2pt];
 								\fill (C) circle [radius=2pt];
-								\draw (O)node[below]{\mathdisplaystyle{\hat{c}_i}};
-								\draw (A)node[below]{\mathdisplaystyle{\hat{c}_j}};
-								\draw (B)node[above]{\mathdisplaystyle{\hat{c}_k}};
-								\draw (C)node[right]{\mathdisplaystyle{c}};
-								\draw (D)node[right]{\mathdisplaystyle{\partial B\parentheses{{\hat{c}}_i^{L^\ast u^\ast v^\ast},\greekDELTA E_i}}};
-								\draw (E)node[right]{\mathdisplaystyle{\partial B\parentheses{{\hat{c}}_j^{L^\ast u^\ast v^\ast},\greekDELTA E_j}}};
-								\draw (F)node[right]{\mathdisplaystyle{\partial B\parentheses{{\hat{c}}_k^{L^\ast u^\ast v^\ast},\greekDELTA E_k}}};
+								\draw (O)node[below]{\mathdisplaystyle{\Diracket{\hat{c}_i}}};
+								\draw (A)node[below]{\mathdisplaystyle{\Diracket{\hat{c}_j}}};
+								\draw (B)node[above]{\mathdisplaystyle{\Diracket{\hat{c}_k}}};
+								\draw (C)node[right]{\mathdisplaystyle{\Diracket{c}}};
+								\draw (D)node[right]{\mathdisplaystyle{\partial B\parentheses{\Diracket{\hat{c}_i}^{L^\ast u^\ast v^\ast},\greekDELTA E_i}}};
+								\draw (E)node[right]{\mathdisplaystyle{\partial B\parentheses{\Diracket{\hat{c}_j}^{L^\ast u^\ast v^\ast},\greekDELTA E_j}}};
+								\draw (F)node[right]{\mathdisplaystyle{\partial B\parentheses{\Diracket{\hat{c}_k}^{L^\ast u^\ast v^\ast},\greekDELTA E_k}}};
 								\draw (-45:5) arc (-45:225:5cm);
 								\draw (A) circle (1cm);
 								\draw (B) circle (1cm);
@@ -815,13 +821,13 @@
 								\fill (A) circle [radius=2pt];
 								\fill (B) circle [radius=2pt];
 								\fill (C) circle [radius=2pt];
-								\draw (O)node[below]{\mathdisplaystyle{\hat{c}_i}};
-								\draw (A)node[below]{\mathdisplaystyle{\hat{c}_j}};
-								\draw (B)node[above]{\mathdisplaystyle{\hat{c}_k}};
-								\draw (C)node[right]{\mathdisplaystyle{c}};
-								\draw (D)node[right]{\mathdisplaystyle{\partial B\parentheses{{\hat{c}}_i^{L^\ast u^\ast v^\ast},\fraction{1}{2}\greekDELTA E_i}}};
-								\draw (E)node[right]{\mathdisplaystyle{\partial B\parentheses{{\hat{c}}_j^{L^\ast u^\ast v^\ast},\fraction{1}{2}\greekDELTA E_j}}};
-								\draw (F)node[right]{\mathdisplaystyle{\partial B\parentheses{{\hat{c}}_k^{L^\ast u^\ast v^\ast},\fraction{1}{2}\greekDELTA E_k}}};
+								\draw (O)node[below]{\mathdisplaystyle{\Diracket{\hat{c}_i}}};
+								\draw (A)node[below]{\mathdisplaystyle{\Diracket{\hat{c}_j}}};
+								\draw (B)node[above]{\mathdisplaystyle{\Diracket{\hat{c}_k}}};
+								\draw (C)node[right]{\mathdisplaystyle{\Diracket{c}}};
+								\draw (D)node[right]{\mathdisplaystyle{\partial B\parentheses{\Diracket{\hat{c}_i}^{L^\ast u^\ast v^\ast},\fraction{1}{2}\greekDELTA E_i}}};
+								\draw (E)node[right]{\mathdisplaystyle{\partial B\parentheses{\Diracket{\hat{c}_j}^{L^\ast u^\ast v^\ast},\fraction{1}{2}\greekDELTA E_j}}};
+								\draw (F)node[right]{\mathdisplaystyle{\partial B\parentheses{\Diracket{\hat{c}_k}^{L^\ast u^\ast v^\ast},\fraction{1}{2}\greekDELTA E_k}}};
 								\draw (-45:2.5) arc (-45:225:2.5cm);
 								\draw (A) circle (0.5cm);
 								\draw (B) circle (0.5cm);
@@ -830,151 +836,157 @@
 					\end{tabular}
 					\captiondot{上：弱採択域のイメージ，下：強採択域のイメージ}\label{fig:adoption}
 				\end{figure}
-				24 bit Adobe\mathdisplaystyle{RGB}色空間上の各色について実験1で得たSVMで1型2色覚，2型2色覚についてのラベルを予測し，代表色に対して行ったのと同様に各2色覚への写像と座標変換で2色覚のCIELUV座標を求め，その予測ラベルの代表色の弱／強採択域に属していれば弱／強採択されるとする（図\Reference{fig:adoption}の色\mathdisplaystyle{c}の予測ラベルが\mathdisplaystyle{C_i}であるとすると，\mathdisplaystyle{c}は弱採択されるが強採択されない）．
+				24 bit Adobe\mathdisplaystyle{RGB}色空間上の各色について実験1で得たSVMで1型2色覚，2型2色覚についてのラベルを予測し，代表色に対して行ったのと同様に各2色覚への写像と座標変換で2色覚のCIELUV座標を求め，その予測ラベルの代表色の弱／強採択域に属していれば弱／強採択されるとする（図\Reference{fig:adoption}の色\mathdisplaystyle{\Diracket{c}}の予測ラベルが\mathdisplaystyle{C_i}であるとすると，\mathdisplaystyle{\Diracket{c}}は弱採択されるが強採択されない）．
 			\subsection{結果}
 				分類結果をクラス別に集計した結果を表\Reference{tab:result21}--\Reference{tab:result26}に示す．
 				なお，「\mathdisplaystyle{\textrm{P}'}」は1型2色覚でのSVM分類結果，「\mathdisplaystyle{\textrm{P}_\textrm{w}'}」はその分類クラス上で弱採択された物，「\mathdisplaystyle{\textrm{P}_\textrm{s}'}」は強採択された物を表す．
 				「D」については2型2色覚で同様の意味を示す．
-			\tableinput{l|rrr}{ & \(\#\textrm{P}'\) & \(\#\textrm{D}'\) & \(\#\parentheses{\textrm{P}'\cap\textrm{D}'}\) \\ \hline
-				Wt & 31377 & 17583 & 2907 \\
-				plGy & 28298 & 24367 & 5293 \\
-				ltGy & 140108 & 242349 & 15740 \\
-				mdGy & 122770 & 150539 & 20857 \\
-				dkGy & 232508 & 184970 & 21614 \\
-				Bk & 402750 & 340400 & 266528 \\
-				y-Wt & 103936 & 59446 & 42617 \\
-				y-plGy & 205679 & 122695 & 38095 \\
-				y-ltGy & 196167 & 196636 & 39232 \\
-				y-mdGy & 256462 & 359038 & 42390 \\
-				y-dkGy & 205151 & 107913 & 24868 \\
-				vp-Y & 160347 & 122127 & 68861 \\
-				lg-Y & 334141 & 381390 & 80118 \\
-				mg-Y & 396539 & 688404 & 107566 \\
-				dg-Y & 381723 & 375749 & 73040 \\
-				vd-Y & 300874 & 202228 & 72899 \\
-				pl-Y & 359530 & 202534 & 149854 \\
-				sf-Y & 746453 & 478222 & 167422 \\
-				dl-Y & 710716 & 1274158 & 258420 \\
-				dk-Y & 588299 & 1208235 & 228748 \\
-				lt-Y & 1405081 & 721005 & 570017 \\
-				st-Y & 425888 & 501260 & 207420 \\
-				dp-Y & 1206695 & 1079479 & 376267 \\
-				vv-Y & 140658 & 96129 & 29262 \\
-				b-Wt & 39645 & 17363 & 2583 \\
-				b-plGy & 58964 & 82203 & 6365 \\
-				b-ltGy & 100481 & 194246 & 7622 \\
-				b-mdGy & 175929 & 332281 & 11748}{実験2の結果（採択なし）}{result21}
-			\tableinput{l|rrr}{ & \(\#\textrm{P}'\) & \(\#\textrm{D}'\) & \(\#\parentheses{\textrm{P}'\cap\textrm{D}'}\) \\ \hline
-				b-dkGy & 81492 & 124207 & 15222 \\
-				b-Bk & 36231 & 32428 & 5045 \\
-				vp-pB & 139329 & 88204 & 21866 \\
-				lg-pB & 122432 & 208697 & 18188 \\
-				mg-pB & 160575 & 114763 & 20359 \\
-				dg-pB & 192398 & 161755 & 27497 \\
-				vd-pB & 169603 & 53683 & 35852 \\
-				pl-pB & 216066 & 274333 & 124356 \\
-				sf-pB & 189202 & 217637 & 60312 \\
-				dl-pB & 351472 & 491051 & 132165 \\
-				dk-pB & 167737 & 167473 & 95820 \\
-				lt-pB & 1443214 & 1702163 & 933824 \\
-				st-pB & 190276 & 423639 & 31258 \\
-				dp-pB & 3218012 & 1987972 & 1955098 \\
-				vv-pB & 642008 & 966262 & 224085 \\ \hline
-				合計 & 16777216 & 16777216 & 6639300}{実験2の結果（採択なし）\zwspace 続き}{result22}
-			\clearpage
-			\tableinput{l|rrr}{ & \(\#\textrm{P}_\textrm{w}'\) & \(\#\textrm{D}_\textrm{w}'\) & \(\#\parentheses{\textrm{P}_\textrm{w}'\cap\textrm{D}_\textrm{w}'}\) \\ \hline
-				Wt & 0 & 0 & 0 \\
-				plGy & 0 & 0 & 0 \\
-				ltGy & 0 & 0 & 0 \\
-				mdGy & 0 & 0 & 0 \\
-				dkGy & 0 & 0 & 0 \\
-				Bk & 0 & 0 & 0 \\
-				y-Wt & 0 & 0 & 0 \\
-				y-plGy & 0 & 0 & 0 \\
-				y-ltGy & 0 & 0 & 0 \\
-				y-mdGy & 0 & 0 & 0 \\
-				y-dkGy & 0 & 0 & 0 \\
-				vp-Y & 0 & 0 & 0 \\
-				lg-Y & 0 & 0 & 0 \\
-				mg-Y & 0 & 0 & 0 \\
-				dg-Y & 10197 & 31885 & 0 \\
-				vd-Y & 55791 & 106926 & 22575 \\
-				pl-Y & 0 & 0 & 0 \\
-				sf-Y & 0 & 78 & 0 \\
-				dl-Y & 43412 & 41862 & 0 \\
-				dk-Y & 290604 & 458202 & 85154 \\
-				lt-Y & 211248 & 49701 & 10640 \\
-				st-Y & 241 & 0 & 0 \\
-				dp-Y & 569421 & 638624 & 144691 \\
-				vv-Y & 85561 & 35283 & 19685 \\
-				b-Wt & 0 & 0 & 0 \\
-				b-plGy & 0 & 0 & 0 \\
-				b-ltGy & 0 & 0 & 0 \\
-				b-mdGy & 0 & 0 & 0}{実験2の結果（弱採択）}{result23}
-			\tableinput{l|rrr}{ & \(\#\textrm{P}_\textrm{w}'\) & \(\#\textrm{D}_\textrm{w}'\) & \(\#\parentheses{\textrm{P}_\textrm{w}'\cap\textrm{D}_\textrm{w}'}\) \\ \hline
-				b-dkGy & 0 & 0 & 0 \\
-				b-Bk & 0 & 0 & 0 \\
-				vp-pB & 0 & 0 & 0 \\
-				lg-pB & 0 & 0 & 0 \\
-				mg-pB & 0 & 0 & 0 \\
-				dg-pB & 0 & 161563 & 0 \\
-				vd-pB & 0 & 0 & 0 \\
-				pl-pB & 0 & 0 & 0 \\
-				sf-pB & 0 & 0 & 0 \\
-				dl-pB & 0 & 0 & 0 \\
-				dk-pB & 55788 & 114623 & 39233 \\
-				lt-pB & 0 & 0 & 0 \\
-				st-pB & 0 & 0 & 0 \\
-				dp-pB & 163849 & 286178 & 117445 \\
-				vv-pB & 0 & 89715 & 0 \\ \hline
-				合計 & 1486112 & 2014640 & 439423}{実験2の結果（弱採択）\zwspace 続き}{result25}
-			\clearpage
-			\tableinput{l|rrr}{ & \(\#\textrm{P}_\textrm{s}'\) & \(\#\textrm{D}_\textrm{s}'\) & \(\#\parentheses{\textrm{P}_\textrm{s}'\cap\textrm{D}_\textrm{s}'}\) \\ \hline
-				Wt & 0 & 0 & 0 \\
-				plGy & 0 & 0 & 0 \\
-				ltGy & 0 & 0 & 0 \\
-				mdGy & 0 & 0 & 0 \\
-				dkGy & 0 & 0 & 0 \\
-				Bk & 0 & 0 & 0 \\
-				y-Wt & 0 & 0 & 0 \\
-				y-plGy & 0 & 0 & 0 \\
-				y-ltGy & 0 & 0 & 0 \\
-				y-mdGy & 0 & 0 & 0 \\
-				y-dkGy & 0 & 0 & 0 \\
-				vp-Y & 0 & 0 & 0 \\
-				lg-Y & 0 & 0 & 0 \\
-				mg-Y & 0 & 0 & 0 \\
-				dg-Y & 0 & 0 & 0 \\
-				vd-Y & 0 & 0 & 0 \\
-				pl-Y & 0 & 0 & 0 \\
-				sf-Y & 0 & 0 & 0 \\
-				dl-Y & 0 & 94 & 0 \\
-				dk-Y & 7244 & 83513 & 1118 \\
-				lt-Y & 0 & 0 & 0 \\
-				st-Y & 0 & 0 & 0 \\
-				dp-Y & 139260 & 216711 & 6893 \\
-				vv-Y & 0 & 0 & 0 \\
-				b-Wt & 0 & 0 & 0 \\
-				b-plGy & 0 & 0 & 0 \\
-				b-ltGy & 0 & 0 & 0 \\
-				b-mdGy & 0 & 0 & 0}{実験2の結果（強採択）}{result23}
-			\tableinput{l|rrr}{ & \(\#\textrm{P}_\textrm{s}'\) & \(\#\textrm{D}_\textrm{s}'\) & \(\#\parentheses{\textrm{P}_\textrm{s}'\cap\textrm{D}_\textrm{s}'}\) \\ \hline
-				b-dkGy & 0 & 0 & 0 \\
-				b-Bk & 0 & 0 & 0 \\
-				vp-pB & 0 & 0 & 0 \\
-				lg-pB & 0 & 0 & 0 \\
-				mg-pB & 0 & 0 & 0 \\
-				dg-pB & 0 & 2718 & 0 \\
-				vd-pB & 0 & 0 & 0 \\
-				pl-pB & 0 & 0 & 0 \\
-				sf-pB & 0 & 0 & 0 \\
-				dl-pB & 0 & 0 & 0 \\
-				dk-pB & 0 & 0 & 0 \\
-				lt-pB & 0 & 0 & 0 \\
-				st-pB & 0 & 0 & 0 \\
-				dp-pB & 0 & 0 & 0 \\
-				vv-pB & 0 & 0 & 0 \\ \hline
-				合計 & 146504 & 303036 & 8011}{実験2の結果（強採択）\zwspace 続き}{result26}
+				\tableinput{l|rrr}{ & \(\#\textrm{P}'\) & \(\#\textrm{D}'\) & \(\#\parentheses{\textrm{P}'\cap\textrm{D}'}\) \\ \hline
+					Wt & 31377 & 17583 & 2907 \\
+					plGy & 28298 & 24367 & 5293 \\
+					ltGy & 140108 & 242349 & 15740 \\
+					mdGy & 122770 & 150539 & 20857 \\
+					dkGy & 232508 & 184970 & 21614 \\
+					Bk & 402750 & 340400 & 266528 \\
+					y-Wt & 103936 & 59446 & 42617 \\
+					y-plGy & 205679 & 122695 & 38095 \\
+					y-ltGy & 196167 & 196636 & 39232 \\
+					y-mdGy & 256462 & 359038 & 42390 \\
+					y-dkGy & 205151 & 107913 & 24868 \\
+					vp-Y & 160347 & 122127 & 68861 \\
+					lg-Y & 334141 & 381390 & 80118 \\
+					mg-Y & 396539 & 688404 & 107566 \\
+					dg-Y & 381723 & 375749 & 73040 \\
+					vd-Y & 300874 & 202228 & 72899 \\
+					pl-Y & 359530 & 202534 & 149854 \\
+					sf-Y & 746453 & 478222 & 167422 \\
+					dl-Y & 710716 & 1274158 & 258420 \\
+					dk-Y & 588299 & 1208235 & 228748 \\
+					lt-Y & 1405081 & 721005 & 570017 \\
+					st-Y & 425888 & 501260 & 207420 \\
+					dp-Y & 1206695 & 1079479 & 376267 \\
+					vv-Y & 140658 & 96129 & 29262 \\
+					b-Wt & 39645 & 17363 & 2583 \\
+					b-plGy & 58964 & 82203 & 6365 \\
+					b-ltGy & 100481 & 194246 & 7622 \\
+					b-mdGy & 175929 & 332281 & 11748}{実験2の結果（採択なし）}{result21}
+				\tableinput{l|rrr}{ & \(\#\textrm{P}'\) & \(\#\textrm{D}'\) & \(\#\parentheses{\textrm{P}'\cap\textrm{D}'}\) \\ \hline
+					b-dkGy & 81492 & 124207 & 15222 \\
+					b-Bk & 36231 & 32428 & 5045 \\
+					vp-pB & 139329 & 88204 & 21866 \\
+					lg-pB & 122432 & 208697 & 18188 \\
+					mg-pB & 160575 & 114763 & 20359 \\
+					dg-pB & 192398 & 161755 & 27497 \\
+					vd-pB & 169603 & 53683 & 35852 \\
+					pl-pB & 216066 & 274333 & 124356 \\
+					sf-pB & 189202 & 217637 & 60312 \\
+					dl-pB & 351472 & 491051 & 132165 \\
+					dk-pB & 167737 & 167473 & 95820 \\
+					lt-pB & 1443214 & 1702163 & 933824 \\
+					st-pB & 190276 & 423639 & 31258 \\
+					dp-pB & 3218012 & 1987972 & 1955098 \\
+					vv-pB & 642008 & 966262 & 224085 \\ \hline
+					合計 & 16777216 & 16777216 & 6639300}{実験2の結果（採択なし）\zwspace 続き}{result22}
+				\clearpage
+				\tableinput{l|rrr}{ & \(\#\textrm{P}_\textrm{w}'\) & \(\#\textrm{D}_\textrm{w}'\) & \(\#\parentheses{\textrm{P}_\textrm{w}'\cap\textrm{D}_\textrm{w}'}\) \\ \hline
+					Wt & 0 & 0 & 0 \\
+					plGy & 0 & 0 & 0 \\
+					ltGy & 0 & 0 & 0 \\
+					mdGy & 0 & 0 & 0 \\
+					dkGy & 0 & 0 & 0 \\
+					Bk & 0 & 0 & 0 \\
+					y-Wt & 0 & 0 & 0 \\
+					y-plGy & 0 & 0 & 0 \\
+					y-ltGy & 0 & 0 & 0 \\
+					y-mdGy & 0 & 0 & 0 \\
+					y-dkGy & 0 & 0 & 0 \\
+					vp-Y & 0 & 0 & 0 \\
+					lg-Y & 0 & 0 & 0 \\
+					mg-Y & 0 & 0 & 0 \\
+					dg-Y & 10197 & 31885 & 0 \\
+					vd-Y & 55791 & 106926 & 22575 \\
+					pl-Y & 0 & 0 & 0 \\
+					sf-Y & 0 & 78 & 0 \\
+					dl-Y & 43412 & 41862 & 0 \\
+					dk-Y & 290604 & 458202 & 85154 \\
+					lt-Y & 211248 & 49701 & 10640 \\
+					st-Y & 241 & 0 & 0 \\
+					dp-Y & 569421 & 638624 & 144691 \\
+					vv-Y & 85561 & 35283 & 19685 \\
+					b-Wt & 0 & 0 & 0 \\
+					b-plGy & 0 & 0 & 0 \\
+					b-ltGy & 0 & 0 & 0 \\
+					b-mdGy & 0 & 0 & 0}{実験2の結果（弱採択）}{result23}
+				\tableinput{l|rrr}{ & \(\#\textrm{P}_\textrm{w}'\) & \(\#\textrm{D}_\textrm{w}'\) & \(\#\parentheses{\textrm{P}_\textrm{w}'\cap\textrm{D}_\textrm{w}'}\) \\ \hline
+					b-dkGy & 0 & 0 & 0 \\
+					b-Bk & 0 & 0 & 0 \\
+					vp-pB & 0 & 0 & 0 \\
+					lg-pB & 0 & 0 & 0 \\
+					mg-pB & 0 & 0 & 0 \\
+					dg-pB & 0 & 161563 & 0 \\
+					vd-pB & 0 & 0 & 0 \\
+					pl-pB & 0 & 0 & 0 \\
+					sf-pB & 0 & 0 & 0 \\
+					dl-pB & 0 & 0 & 0 \\
+					dk-pB & 55788 & 114623 & 39233 \\
+					lt-pB & 0 & 0 & 0 \\
+					st-pB & 0 & 0 & 0 \\
+					dp-pB & 163849 & 286178 & 117445 \\
+					vv-pB & 0 & 89715 & 0 \\ \hline
+					合計 & 1486112 & 2014640 & 439423}{実験2の結果（弱採択）\zwspace 続き}{result25}
+				\clearpage
+				\tableinput{l|rrr}{ & \(\#\textrm{P}_\textrm{s}'\) & \(\#\textrm{D}_\textrm{s}'\) & \(\#\parentheses{\textrm{P}_\textrm{s}'\cap\textrm{D}_\textrm{s}'}\) \\ \hline
+					Wt & 0 & 0 & 0 \\
+					plGy & 0 & 0 & 0 \\
+					ltGy & 0 & 0 & 0 \\
+					mdGy & 0 & 0 & 0 \\
+					dkGy & 0 & 0 & 0 \\
+					Bk & 0 & 0 & 0 \\
+					y-Wt & 0 & 0 & 0 \\
+					y-plGy & 0 & 0 & 0 \\
+					y-ltGy & 0 & 0 & 0 \\
+					y-mdGy & 0 & 0 & 0 \\
+					y-dkGy & 0 & 0 & 0 \\
+					vp-Y & 0 & 0 & 0 \\
+					lg-Y & 0 & 0 & 0 \\
+					mg-Y & 0 & 0 & 0 \\
+					dg-Y & 0 & 0 & 0 \\
+					vd-Y & 0 & 0 & 0 \\
+					pl-Y & 0 & 0 & 0 \\
+					sf-Y & 0 & 0 & 0 \\
+					dl-Y & 0 & 94 & 0 \\
+					dk-Y & 7244 & 83513 & 1118 \\
+					lt-Y & 0 & 0 & 0 \\
+					st-Y & 0 & 0 & 0 \\
+					dp-Y & 139260 & 216711 & 6893 \\
+					vv-Y & 0 & 0 & 0 \\
+					b-Wt & 0 & 0 & 0 \\
+					b-plGy & 0 & 0 & 0 \\
+					b-ltGy & 0 & 0 & 0 \\
+					b-mdGy & 0 & 0 & 0}{実験2の結果（強採択）}{result23}
+				\tableinput{l|rrr}{ & \(\#\textrm{P}_\textrm{s}'\) & \(\#\textrm{D}_\textrm{s}'\) & \(\#\parentheses{\textrm{P}_\textrm{s}'\cap\textrm{D}_\textrm{s}'}\) \\ \hline
+					b-dkGy & 0 & 0 & 0 \\
+					b-Bk & 0 & 0 & 0 \\
+					vp-pB & 0 & 0 & 0 \\
+					lg-pB & 0 & 0 & 0 \\
+					mg-pB & 0 & 0 & 0 \\
+					dg-pB & 0 & 2718 & 0 \\
+					vd-pB & 0 & 0 & 0 \\
+					pl-pB & 0 & 0 & 0 \\
+					sf-pB & 0 & 0 & 0 \\
+					dl-pB & 0 & 0 & 0 \\
+					dk-pB & 0 & 0 & 0 \\
+					lt-pB & 0 & 0 & 0 \\
+					st-pB & 0 & 0 & 0 \\
+					dp-pB & 0 & 0 & 0 \\
+					vv-pB & 0 & 0 & 0 \\ \hline
+					合計 & 146504 & 303036 & 8011}{実験2の結果（強採択）\zwspace 続き}{result26}
+				\clearpage
+
+				採択を強くする程分類結果の色数が減少する様子が分かる．
+				強採択は殆どのセルが0になっていて，分類精度としてはかなりの信頼が置けるものの，合計色数が非常に少なく，また0でないセルを含む行に偏りがあるので，これをそのままデザイン配色に用いるのは難しいと考えられる．
+				弱採択も全て0の行が複数ある為，これを使用できるかはケースバイケースと言える．
+				採択を行わない状態ではどのセルも数千色ずつあるが，誤分類が多数含まれていると考えられ，厳格にデザインを行う際は色盲者や色盲シミュレータによって実際に見え方や色の識別可能性を調べていく必要があると考えられる．
 	\chapter{結論}
 	\chapter*{謝辞}
 %	本研究を進めるに当たり，指導教官の池田大輔准教授からは多大な助言を賜りました．
@@ -984,7 +996,7 @@
 %	また，本学芸術工学研究院デザイン人間科学部門の須長正治准教授からは，NCSのデータセットの提供，並びに色彩学や色覚異常についてのご教授を頂きました．
 %	厚く御礼申し上げます．
 %
-%	毎日共に研究を行った池田研究室の皆様には，常に適切な指摘によって研究を支えていただき，大変有意義な1年間の研究生活を過ごせました．
+%	毎日共に研究を行った池田研究室の皆様には，常に適切な指摘，指導によって研究を支えていただき，大変有意義な1年間の研究生活を過ごせました．
 %	ありがとうございました．
 %	特に同期の永溝孝太君から頂いたアドバイスや彼との他愛ない会話が大きな支えになりました．
 %	ここに感謝の意を表します．
