@@ -107,12 +107,6 @@
 \makeatother
 \delete{footnote}from{chapter}
 \usepackage{comment,csquotes}
-\makeatletter
-	\renewcommand{\theequation}{\thesection.\arabic{equation}}
-	\@addtoreset{equation}{section}
-	\AtBeginDocument{\renewcommand{\thelstlisting}{\thesection.\arabic{lstlisting}}}
-	\@addtoreset{lstlisting}{section}
-\makeatother
 \newcolumntype{C}{>{\centering\arraybackslash}X}
 \newcolumntype{L}{>{\raggedright\arraybackslash}X}
 \newcolumntype{R}{>{\raggedleft\arraybackslash}X}
@@ -316,7 +310,7 @@
 			ここで，\mathdisplaystyle{\lambda}\,[nm]は光の波長である．
 			図\Reference{fig:le}は，CIE1924分光視感効率\mathdisplaystyle{V\parentheses{\lambda}}（暗い青色の実線）とJudd--Vos修正分光視感効率\mathdisplaystyle{V_\textrm{M}\parentheses{\lambda}}\cite{Vos1978}（暗い黄色の破線）である．
 			CIE1924分光視感効率はGibsonとTyndallが測定した（1923）結果を，1924年にCIEが採用した物である．
-			しかし，短波長側の感度が低く見積もられているという指摘があり，Judd（1951）とVos（1978）がこれを修正する形でudd--Vos修正分光視感効率が得られている．
+			しかし，短波長側の感度が低く見積もられているという指摘があり，Judd（1951）とVos（1978）がこれを修正する形でJudd--Vos修正分光視感効率が得られている．
 			\mathdisplaystyle{V\parentheses{\lambda}}，\mathdisplaystyle{V_\textrm{M}\parentheses{\lambda}}は共に\mathdisplaystyle{\lambda\sim{}}\SI{555}{nm}で極大かつ最大となる．
 			修正によって\mathdisplaystyle{\lambda\sim{}}\SI{425}{nm}での感度がより高く見積もられることになった．
 
@@ -368,8 +362,8 @@
 			そこで定義されたのがCIE1931\mathdisplaystyle{XYZ}色空間である\footnote{CIE2012\mathdisplaystyle{XYZ}，CIE2015\mathdisplaystyle{XYZ}はCIE1931\mathdisplaystyle{XYZ}をより新しくした物である．}．
 			CIE1931\mathdisplaystyle{XYZ}は次の3つの要請を全て満足するように構築された．
 			\begin{align*}
-				&\textrm{①}\exists!\,{M_{RGB\to XYZ}\in\blackboardR^{3\times3}}\mathcomma\forall\lambda\in\parentheses{0,\infty}\mathcomma\easymatrix{X\parentheses{\lambda} \\ Y\parentheses{\lambda} \\ Z\parentheses{\lambda}}=M_{RGB\to XYZ}\easymatrix{\bar{r}\parentheses{\lambda} \\ \bar{g}\parentheses{\lambda} \\ \bar{b}\parentheses{\lambda}}\textrm{，}\\
-				&\textrm{②}\forall\lambda\in\parentheses{0,\infty}\mathcomma\easymatrix{X\parentheses{\lambda} \\ Y\parentheses{\lambda} \\ Z\parentheses{\lambda}}\geq\bm{0}\textrm{，}\\
+				&\textrm{①}\exists!\,{M_{RGB\to XYZ}\in\blackboardR^{3\times3}}\mathcomma\forall\lambda\in\parentheses{0,\infty}\mathcomma\easymatrix{X\parentheses{\lambda} \\ Y\parentheses{\lambda} \\ Z\parentheses{\lambda}}=M_{RGB\to XYZ}\easymatrix{\bar{r}\parentheses{\lambda} \\ \bar{g}\parentheses{\lambda} \\ \bar{b}\parentheses{\lambda}}\\
+				&\textrm{②}\forall\lambda\in\parentheses{0,\infty}\mathcomma\easymatrix{X\parentheses{\lambda} \\ Y\parentheses{\lambda} \\ Z\parentheses{\lambda}}\geq\bm{0}\\
 				&\textrm{③}\forall\lambda\in\parentheses{0,\infty}\mathcomma Y\parentheses{\lambda}=V\parentheses{\lambda}\quad\parentheses{V\parentheses{\lambda}\textrm{：CIE1924分光視感効率}}\textrm{．}
 			\end{align*}
 			①は変換のしやすさの為，②は先述の通り，③は\mathdisplaystyle{Y\parentheses{\lambda}}に意味を与えたかった為である．
@@ -398,7 +392,7 @@
 			今まで述べてきたように色は3次元空間上で表現される．
 			しかし，実際にデザインする時に3次元だとイメージが難しいという課題がある．
 			そこで，\begin{align*}
-				&x=\fraction{X}{X+Y+Z}\textrm{，}\\
+				&x=\fraction{X}{X+Y+Z}\\
 				&y=\fraction{Y}{X+Y+Z}
 			\end{align*}
 			で2次元に落とす\mathdisplaystyle{xy}色度図（\mathdisplaystyle{xy} color diagram）が開発された（図\Reference{fig:xydiagram}）．
@@ -475,7 +469,7 @@
 			CIE1931\mathdisplaystyle{XYZ}や\mathdisplaystyle{xy}色度図で評価されたが，これらでは知覚の均一性が弱く，色差計算には不向きであることがMacAdamによって明らかになった\cite{MacAdam1942}．
 			図\Reference{fig:MacAdam}は\mathdisplaystyle{xy}色度図にMacAdamの楕円を描き加えた物である．
 			\figureinput{width=\linewidth}{D:/a/figs/MacAdam.png}{\mathdisplaystyle{xy}色度図とMacAdamの楕円}{MacAdam}
-			MacAdamの楕円は，ある色から少しずらしても色の変化を知覚できない領域を楕円で表し，相似比10で拡大した物で，もし色空間が完全に均等色空間であるならば，どの楕円も必ず真円になる．
+			MacAdamの楕円は，ある色から少しずらしても色の変化を知覚できない領域を楕円で表し，相似比10で拡大した物で，もし色空間が完全に均等色空間であるならば，どの楕円も半径が等しい真円になる．
 			\mathdisplaystyle{xy}色度図では特に\mathdisplaystyle{y}座標が大きい所で縦に引き伸ばされていることが分かる．
 			そこで，知覚の均一性を考慮した均等色空間が複数考案され，現在でも改良が続けられている．
 		\section{CIE1976\mathdisplaystyle{L^\ast a^\ast b^\ast}色空間}
@@ -505,8 +499,8 @@
 			で定義する．
 			この時，
 			\begin{align*}
-				&L^\ast\parentheses{X,Y,Z}=116f\parentheses{\fraction{Y}{Y_\textrm{n}}}-16\textrm{，}\\
-				&a^\ast\parentheses{X,Y,Z}=500\braces{f\parentheses{\fraction{X}{X_\textrm{n}}}-f\parentheses{\fraction{Y}{Y_\textrm{n}}}}\textrm{，}\\
+				&L^\ast\parentheses{X,Y,Z}=116f\parentheses{\fraction{Y}{Y_\textrm{n}}}-16\\
+				&a^\ast\parentheses{X,Y,Z}=500\braces{f\parentheses{\fraction{X}{X_\textrm{n}}}-f\parentheses{\fraction{Y}{Y_\textrm{n}}}}\\
 				&b^\ast\parentheses{X,Y,Z}=200\braces{f\parentheses{\fraction{Y}{Y_\textrm{n}}}-f\parentheses{\fraction{Z}{Z_\textrm{n}}}}
 			\end{align*}
 			となる．
@@ -555,8 +549,8 @@
 			\end{align*}
 			で定め，\mathdisplaystyle{u^\ast}，\mathdisplaystyle{v^\ast}を
 			\begin{align*}
-				&u^\ast\parentheses{X,Y,Z}=13L^\ast\parentheses{u'-u'_\textrm{n}}\\
-				&v^\ast\parentheses{X,Y,Z}=13L^\ast\parentheses{v'-v'_\textrm{n}}
+				&u^\ast\parentheses{X,Y,Z}=13L^\ast\parentheses{u'-{u_\textrm{n}}'}\\
+				&v^\ast\parentheses{X,Y,Z}=13L^\ast\parentheses{v'-{v_\textrm{n}}'}
 			\end{align*}
 			とする．
 			色差\mathdisplaystyle{\greekDELTA E^{L^\ast u^\ast v^\ast}\parentheses{\Diracket{c_\alpha},\Diracket{c_\beta}}}は式\Equationreference{eq:LAB}と同様に
@@ -696,8 +690,8 @@
 				ハイパーパラメータの推定にGPによるBayes最適化を用いる．
 				同じ乱数シードで訓練データを更に5分割し，
 				\begin{align}
-					&\gamma\in\squarebrackets{2^\negativevalue{20},2^{20}}\quad\parentheses{\textrm{但し，対数一様分布（log-uniform distribution）}}\textrm{，}\label{eq:gamma}\\
-					&C\in\squarebrackets{2^\negativevalue{20},2^{20}}\quad\parentheses{\textrm{但し，対数一様分布}}\textrm{，}\label{eq:C}\\
+					&\gamma\in\squarebrackets{2^\negativevalue{20},2^{20}}\quad\parentheses{\textrm{但し，対数一様分布（log-uniform distribution）}}\label{eq:gamma}\\
+					&C\in\squarebrackets{2^\negativevalue{20},2^{20}}\quad\parentheses{\textrm{但し，対数一様分布}}\label{eq:C}\\
 					&\textit{class\_weight}\in\braces{\textit{None},\textrm{``balanced''}}\label{eq:classweight}
 				\end{align}
 				という条件の下，分割された訓練データそれぞれの正解率（accuracy）の平均値を最大にするパラメータを推定する．
@@ -765,7 +759,7 @@
 
 				次に，各クラス\mathdisplaystyle{{\parentheses{C_i}}_{i=1}^{43}}について代表色を\mathdisplaystyle{\Diracket{\hat{c}_i}\in C_i}とし，自分自身を除いて最も近い代表色\mathdisplaystyle{{\hat{c}}_{\tilde{j}\parentheses{i}}}との色差\mathdisplaystyle{\greekDELTA E_i}を距離行列から
 				\begin{align*}
-					&\tilde{j}\parentheses{i}\in\operatorname*{arg\,min}_{j\neq i}{\greekDELTA E^{L^\ast u^\ast v^\ast}\parentheses{\Diracket{\hat{c}_i},\Diracket{\hat{c}_j}}}\textrm{，}\\
+					&\tilde{j}\parentheses{i}\in\operatorname*{arg\,min}_{j\neq i}{\greekDELTA E^{L^\ast u^\ast v^\ast}\parentheses{\Diracket{\hat{c}_i},\Diracket{\hat{c}_j}}}\\
 					&\greekDELTA E_i=\greekDELTA E^{L^\ast u^\ast v^\ast}\parentheses{\Diracket{\hat{c}_i},\Diracket{\hat{c}_{\tilde{j}\parentheses{i}}}}
 				\end{align*}
 				で求め，代表色\mathdisplaystyle{\Diracket{\hat{c}_i}^{L^\ast u^\ast v^\ast}}を中心とする半径が\mathdisplaystyle{\greekDELTA E_i}である開球\mathdisplaystyle{B\parentheses{\Diracket{\hat{c}_i}^{L^\ast u^\ast v^\ast},\greekDELTA E_i}}と，半径がその半分である開球\mathdisplaystyle{B\parentheses{\Diracket{\hat{c}_i}^{L^\ast u^\ast v^\ast},\greekDELTA E_i/2}}を考える．
@@ -1012,7 +1006,7 @@
 		しかし，本論文では色盲者による実際の目視を行っておらず，現実的な意味での分類精度や採択の効果が不明なままである．
 		今後は，本論文で得た配色セットを複数の色盲者や色弱者に見せる実験を行い，これらの点を確認しつつ，意見を貰うことになる．
 		また，CIEDE2000やCAM02-UCS等のより新しい均等色空間で色差を再計算することで，採択の効果が高まると考えられる．
-		幸いにも，\texttt{Colour}を使用することでこれらの色空間への座標変換，並びに，これらの上での色差計算が容易に行われることから，これを積極的に活用していきたい．
+		幸いにも，Pythonライブラリ``Colour''を使用することでこれらの色空間への座標変換，並びに，これらの上での色差計算が容易に行われることから，これを積極的に活用していきたい．
 	\chapter*{謝辞}
 		本研究を進めるに当たり，指導教官の池田大輔准教授からは多大な助言を賜りました．
 		研究テーマの決定，冬休み中の急激なテーマ変更のお願いに対しても親身に接し，常に温かいご指導をしてくださったことが本論文の完成に繫がりました．
